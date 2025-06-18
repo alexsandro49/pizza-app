@@ -1,4 +1,12 @@
-@import './base.css';
+@import "./base.css";
+@import "tailwindcss";
+
+@theme {
+  --color-tomato-red: #ff6347;
+  --color-forest-green: #228b22;
+  --color-dark-slate-gray: #2f4f4f;
+  --color-small-gray: #646464;
+}
 
 #app {
   max-width: 1280px;
