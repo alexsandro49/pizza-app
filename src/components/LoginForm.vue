@@ -1,19 +1,18 @@
 <script lang="ts" setup>
-import { faEye } from "@fortawesome/free-regular-svg-icons";
-import { faEyeSlash } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-import { ref } from "vue";
 
-const isFaEye = ref(true);
-
-const emit = defineEmits(["changeFormType"]);
+const emit = defineEmits(["changeFormType", "changeCurrentIcon"]);
+const props = defineProps<{
+  inputType: string;
+  inputIcon: string;
+}>();
 
 function changeFormTypeHandler() {
   emit("changeFormType");
 }
 
-function changeCurrentIcon() {
-  isFaEye.value = !isFaEye.value;
+function changeCurrentIconHandler() {
+  emit("changeCurrentIcon");
 }
 </script>
 
@@ -35,13 +34,13 @@ function changeCurrentIcon() {
       >
         <input
           class="h-10 border-none w-full pl-3 text-small-gray outline-none"
-          :type="isFaEye ? 'password' : 'text'"
+          :type="props.inputType"
           placeholder="Senha"
         />
-        <FontAwesomeIcon
+        <font-awesome-icon
+          :icon="props.inputIcon"
           class="text-small-gray text-xl inline-flex cursor-pointer"
-          :icon="isFaEye ? faEye : faEyeSlash"
-          @click="changeCurrentIcon"
+          @click="changeCurrentIconHandler"
         />
       </div>
       <a class="mb-3 text-tomato-red text-xs cursor-pointer"
@@ -55,9 +54,7 @@ function changeCurrentIcon() {
     </form>
     <p class="font-montserrat mt-2 text-small-gray">
       Ainda não criou a sua conta?
-      <a
-        class="text-tomato-red cursor-pointer"
-        @click.prevent="changeFormTypeHandler"
+      <a class="text-tomato-red cursor-pointer" @click="changeFormTypeHandler"
         >Cadastre-se</a
       >
     </p>
