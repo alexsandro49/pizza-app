@@ -5,6 +5,7 @@ const emit = defineEmits(["changeFormType", "changeCurrentIcon"]);
 const props = defineProps<{
   inputType: string;
   inputIcon: string;
+  theme: boolean;
 }>();
 
 function changeFormTypeHandler() {
@@ -17,48 +18,53 @@ function changeCurrentIconHandler() {
 </script>
 
 <template>
-  <div class="box-border h-52 w-full items-center flex flex-col mt-4">
-    <p class="font-montserrat text-small-gray mb-2 font-semibold text-base">
+  <div
+    :class="{ dark: theme }"
+    class="box-border h-52 w-full items-center flex flex-col mt-4"
+  >
+    <p
+      class="dark:text-white font-montserrat text-small-gray mb-2 font-semibold text-base"
+    >
       Cadastre-se
     </p>
     <form
       class="font-montserrat flex flex-col justify-between items-end w-full"
     >
       <input
-        class="mb-2 border-1 rounded-lg h-10 w-full pl-3 text-small-gray border-small-gray"
+        class="dark:text-white dark:border-white dark:outline-white dark:placeholder:text-white mb-2 border-1 rounded-lg h-10 w-full pl-3 text-small-gray border-small-gray"
         type="text"
         placeholder="Nome completo"
       />
       <input
-        class="mb-2 border-1 rounded-lg h-10 w-full pl-3 text-small-gray border-small-gray"
-        type="text"
+        class="dark:text-white dark:border-white dark:outline-white dark:placeholder:text-white mb-2 border-1 rounded-lg h-10 w-full pl-3 text-small-gray border-small-gray"
+        type="email"
         placeholder="E-mail ou Telefone"
       />
       <div
-        class="focus-within:outline-1 outline-small-gray mb-2 pr-2 w-full flex items-center h-10 border-small-gray border-1 rounded-lg focus:border-1"
+        class="dark:border-white dark:outline-white focus-within:outline-1 outline-small-gray mb-2 pr-2 w-full flex items-center h-10 border-small-gray border-1 rounded-lg focus:border-1"
       >
         <input
-          class="h-10 border-none w-full pl-3 text-small-gray outline-none"
+          class="dark:text-white dark:placeholder:text-white h-10 border-none w-full pl-3 text-small-gray outline-none"
           :type="props.inputType"
           placeholder="Senha"
         />
         <font-awesome-icon
           :icon="props.inputIcon"
-          class="text-small-gray text-xl inline-flex cursor-pointer"
+          class="dark:text-white text-small-gray text-xl inline-flex cursor-pointer"
           @click="changeCurrentIconHandler"
         />
       </div>
       <div
-        class="focus-within:outline-1 outline-small-gray mb-2 pr-2 w-full flex items-center h-10 border-small-gray border-1 rounded-lg focus:border-1"
+        class="dark:border-white dark:outline-white focus-within:outline-1 outline-small-gray mb-2 pr-2 w-full flex items-center h-10 border-small-gray border-1 rounded-lg focus:border-1"
       >
         <input
-          class="h-10 border-none w-full pl-3 text-small-gray outline-none"
+          class="dark:text-white dark:placeholder:text-white h-10 border-none w-full pl-3 text-small-gray outline-none"
           :type="props.inputType"
           placeholder="Confirme a sua senha"
         />
         <font-awesome-icon
           :icon="props.inputIcon"
-          class="text-small-gray text-xl inline-flex cursor-pointer"
+          class="dark:text-white text-small-gray text-xl inline-flex cursor-pointer"
           @click="changeCurrentIconHandler"
         />
       </div>
@@ -68,7 +74,7 @@ function changeCurrentIconHandler() {
         Criar conta
       </button>
     </form>
-    <p class="font-montserrat mt-2 text-small-gray">
+    <p class="dark:text-white font-montserrat mt-2 text-small-gray">
       Já criou a sua conta?
       <span
         class="text-tomato-red cursor-pointer"
