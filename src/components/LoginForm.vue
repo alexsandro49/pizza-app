@@ -59,12 +59,7 @@ watch([email, password], () => {
     >
       Acesse a sua conta
     </p>
-    <p
-      v-if="loginError"
-      class="mb-3 text-tomato-red text-base font-bold border-1 p-2 m-1"
-    >
-      CREDENCIAIS INVÁLIDAS
-    </p>
+
     <form
       class="font-montserrat flex flex-col justify-between items-end w-full"
     >
@@ -90,6 +85,7 @@ watch([email, password], () => {
           @click="changeCurrentIconHandler"
         />
       </div>
+
       <a class="mb-3 text-tomato-red text-base cursor-pointer"
         >Esqueci a minha senha</a
       >
@@ -100,11 +96,33 @@ watch([email, password], () => {
         Entrar
       </button>
     </form>
+
     <p class="dark:text-white font-montserrat mt-2 text-small-gray">
       Ainda não criou a sua conta?
       <a class="text-tomato-red cursor-pointer" @click="changeFormTypeHandler"
         >Cadastre-se</a
       >
     </p>
+
+    <Transition>
+      <p
+        v-show="loginError"
+        class="mt-5 text-tomato-red text-base font-bold border-1 p-2 m-1"
+      >
+        CREDENCIAIS INVÁLIDAS
+      </p>
+    </Transition>
   </div>
 </template>
+
+<style>
+.v-enter-active,
+.v-leave-active {
+  transition: opacity 0.8s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
+}
+</style>
