@@ -9,10 +9,14 @@ const app = createApp(App);
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { far } from "@fortawesome/free-regular-svg-icons";
+import { createPinia } from "pinia";
 
 library.add(far);
 
 app.component("font-awesome-icon", FontAwesomeIcon);
 app.use(router);
 
+const pinia = createPinia();
+
+app.use(pinia);
 app.mount("#app");

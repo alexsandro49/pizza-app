@@ -1,9 +1,10 @@
 <script lang="ts" setup>
-import { hashPassword } from "@/utils/shared";
+import { hashHandler } from "@/utils/shared";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-import { ref, watch } from "vue";
-import users from "@/utils/users.json";
+import { onMounted, ref, watch } from "vue";
 import { useRouter } from "vue-router";
+import type { IUser } from "@/utils/types";
+import { useUsersStore } from "@/stores/users";
 
 const router = useRouter();
 
@@ -14,9 +15,16 @@ const props = defineProps<{
   theme: boolean;
 }>();
 
-const email = ref("");
-const password = ref("");
+const user = ref<IUser>({
+  id: "",
+  name: "",
+  email: "",
+  password: "",
+});
+
 const loginError = ref(false);
+
+const usersStore = useUsersStore();
 
 function changeFormTypeHandler() {
   emit("changeFormType");
@@ -27,25 +35,37 @@ function changeCurrentIconHandler() {
 }
 
 async function loginHandler() {
-  const passwordHash = await hashPassword(password.value);
-  const user = users.find(
-    (user) => user.password === passwordHash && user.email === email.value,
-  );
+  const passwordHash = await hashHandler(user.value.password);
+  const userSaved = usersStore.getAllUsers.find((u) => {
+    return u.password === passwordHash && u.email === user.value.email;
+  });
 
-  if (user) {
+  if (userSaved) {
+    usersStore.changeLoggedUserId(userSaved.id);
     router.push("/catalog");
   }
 
-  email.value = "";
-  password.value = "";
+  user.value.email = "";
+  user.value.password = "";
 }
 
-watch([email, password], () => {
+watch([user.value.email, user.value.password], () => {
   loginError.value = false;
 
-  if (email.value === "" && password.value === "" && !loginError.value) {
+  if (
+    user.value.email === "" &&
+    user.value.password === "" &&
+    !loginError.value
+  ) {
     loginError.value = true;
   }
+});
+
+onMounted(() => {
+  user.value.id = "";
+  user.value.name = "";
+  user.value.email = "";
+  user.value.password = "";
 });
 </script>
 
@@ -64,7 +84,7 @@ watch([email, password], () => {
       class="font-montserrat flex flex-col justify-between items-end w-full"
     >
       <input
-        v-model="email"
+        v-model="user.email"
         class="dark:text-white dark:border-white dark:outline-white dark:placeholder:text-white mb-2 border-1 rounded-lg h-10 w-full pl-3 text-small-gray border-small-gray outline-small-gray"
         type="email"
         placeholder="E-mail ou Telefone"
@@ -74,7 +94,7 @@ watch([email, password], () => {
         class="dark:border-white dark:outline-white focus-within:outline-1 outline-small-gray mb-2 pr-2 w-full flex items-center h-10 border-small-gray border-1 rounded-lg focus:border-1"
       >
         <input
-          v-model="password"
+          v-model="user.password"
           class="dark:text-white dark:placeholder:text-white h-10 border-none w-full pl-3 text-small-gray outline-none"
           :type="props.inputType"
           placeholder="Senha"

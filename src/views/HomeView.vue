@@ -4,7 +4,7 @@ import LoginForm from "@/components/LoginForm.vue";
 import SignUpForm from "@/components/SignUpForm.vue";
 import pizza from "@/assets/rb_29035.png";
 
-const login = ref(true);
+const login = ref(false);
 
 const faEye = ref(true);
 const inputIcon = computed(() =>

@@ -1,5 +1,12 @@
 <script lang="ts" setup>
+import { hashHandler, hashRandomValue } from "@/utils/shared";
+import type { IUser } from "@/utils/types";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import { onMounted, ref } from "vue";
+import { useRouter } from "vue-router";
+import { useUsersStore } from "@/stores/users";
+
+const router = useRouter();
 
 const emit = defineEmits(["changeFormType", "changeCurrentIcon"]);
 const props = defineProps<{
@@ -8,6 +15,17 @@ const props = defineProps<{
   theme: boolean;
 }>();
 
+const user = ref<IUser>({
+  id: "",
+  name: "",
+  email: "",
+  password: "",
+});
+
+const usersStore = useUsersStore();
+
+const passwordConfirmation = ref("");
+
 function changeFormTypeHandler() {
   emit("changeFormType");
 }
@@ -15,6 +33,25 @@ function changeFormTypeHandler() {
 function changeCurrentIconHandler() {
   emit("changeCurrentIcon");
 }
+
+async function createAccount() {
+  await hashRandomValue().then((value) => (user.value.id = value));
+  await hashHandler(user.value.password).then(
+    (value) => (user.value.password = value),
+  );
+
+  usersStore.addUser(user.value);
+  usersStore.changeLoggedUserId(user.value.id);
+
+  router.push("/catalog");
+}
+
+onMounted(() => {
+  user.value.id = "";
+  user.value.name = "";
+  user.value.email = "";
+  user.value.password = "";
+});
 </script>
 
 <template>
@@ -33,11 +70,13 @@ function changeCurrentIconHandler() {
       <input
         class="dark:text-white dark:border-white dark:outline-white dark:placeholder:text-white mb-2 border-1 rounded-lg h-10 w-full pl-3 text-small-gray border-small-gray"
         type="text"
+        v-model="user.name"
         placeholder="Nome completo"
       />
       <input
         class="dark:text-white dark:border-white dark:outline-white dark:placeholder:text-white mb-2 border-1 rounded-lg h-10 w-full pl-3 text-small-gray border-small-gray"
         type="email"
+        v-model="user.email"
         placeholder="E-mail ou Telefone"
       />
       <div
@@ -46,6 +85,7 @@ function changeCurrentIconHandler() {
         <input
           class="dark:text-white dark:placeholder:text-white h-10 border-none w-full pl-3 text-small-gray outline-none"
           :type="props.inputType"
+          v-model="user.password"
           placeholder="Senha"
         />
         <font-awesome-icon
@@ -60,6 +100,7 @@ function changeCurrentIconHandler() {
         <input
           class="dark:text-white dark:placeholder:text-white h-10 border-none w-full pl-3 text-small-gray outline-none"
           :type="props.inputType"
+          v-model="passwordConfirmation"
           placeholder="Confirme a sua senha"
         />
         <font-awesome-icon
@@ -70,6 +111,7 @@ function changeCurrentIconHandler() {
       </div>
       <button
         class="cursor-pointer mt-2 w-full bg-tomato-red rounded-lg h-10 text-white font-bold text-xs p-1"
+        @click.prevent="createAccount"
       >
         Criar conta
       </button>
