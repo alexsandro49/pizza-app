@@ -5,6 +5,10 @@ import { onMounted, ref, watch } from "vue";
 import { useRouter } from "vue-router";
 import type { IUser } from "@/utils/types";
 import { useUsersStore } from "@/stores/users";
+import { useConfigStore } from "@/stores/config";
+
+const configStore = useConfigStore()
+const usersStore = useUsersStore();
 
 const router = useRouter();
 
@@ -12,7 +16,6 @@ const emit = defineEmits(["changeFormType", "changeCurrentIcon"]);
 const props = defineProps<{
   inputType: string;
   inputIcon: string;
-  theme: boolean;
 }>();
 
 const user = ref<IUser>({
@@ -23,8 +26,6 @@ const user = ref<IUser>({
 });
 
 const loginError = ref(false);
-
-const usersStore = useUsersStore();
 
 function changeFormTypeHandler() {
   emit("changeFormType");
@@ -71,7 +72,7 @@ onMounted(() => {
 
 <template>
   <div
-    :class="{ dark: props.theme }"
+    :class="{ dark: configStore.darkTheme }"
     class="box-border h-52 w-full items-center flex flex-col mt-4"
   >
     <p

@@ -5,6 +5,10 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
 import { useUsersStore } from "@/stores/users";
+import { useConfigStore } from "@/stores/config";
+
+const configStore = useConfigStore()
+const usersStore = useUsersStore();
 
 const router = useRouter();
 
@@ -12,7 +16,6 @@ const emit = defineEmits(["changeFormType", "changeCurrentIcon"]);
 const props = defineProps<{
   inputType: string;
   inputIcon: string;
-  theme: boolean;
 }>();
 
 const user = ref<IUser>({
@@ -21,8 +24,6 @@ const user = ref<IUser>({
   email: "",
   password: "",
 });
-
-const usersStore = useUsersStore();
 
 const passwordConfirmation = ref("");
 
@@ -56,7 +57,7 @@ onMounted(() => {
 
 <template>
   <div
-    :class="{ dark: theme }"
+    :class="{ dark: configStore.darkTheme }"
     class="box-border h-52 w-full items-center flex flex-col mt-4"
   >
     <p
