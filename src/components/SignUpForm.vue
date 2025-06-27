@@ -60,7 +60,7 @@ onMounted(() => {
     class="box-border h-52 w-full items-center flex flex-col mt-4"
   >
     <p
-      class="dark:text-white font-montserrat text-small-gray mb-2 font-semibold text-base"
+      class="dark:text-white font-montserrat text-small-gray mb-2 font-semibold text-base md:self-start"
     >
       Cadastre-se
     </p>

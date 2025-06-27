@@ -1,9 +1,7 @@
 async function hashValue(value: Uint8Array) {
   const hashBuffer = await crypto.subtle.digest("SHA-256", value);
   const hashArray = Array.from(new Uint8Array(hashBuffer));
-  const hash = hashArray
-    .map((b) => b.toString(16).padStart(2, "0"))
-    .join("");
+  const hash = hashArray.map((b) => b.toString(16).padStart(2, "0")).join("");
 
   return hash;
 }

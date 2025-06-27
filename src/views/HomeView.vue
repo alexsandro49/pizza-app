@@ -4,7 +4,7 @@ import LoginForm from "@/components/LoginForm.vue";
 import SignUpForm from "@/components/SignUpForm.vue";
 import pizza from "@/assets/rb_29035.png";
 
-const login = ref(false);
+const login = ref(true);
 
 const faEye = ref(true);
 const inputIcon = computed(() =>
@@ -31,14 +31,11 @@ function changeTheme() {
 </script>
 
 <template>
-  <main
-    :class="{ dark: darkTheme }"
-    class="flex flex-col w-screen h-screen p-8 box-border items-center overflow-hidden bg-white dark:bg-small-gray"
-  >
-    <div class="bg-tomato-red rounded-full mt-[-50vh] mb-5 w-[570px] h-[555px]">
-      <img class="w-full" :src="pizza" alt="Pizza image" />
+  <main :class="{ dark: darkTheme }">
+    <div class="orange-div">
+      <img :src="pizza" alt="Pizza image" />
     </div>
-    <h1 class="text-tomato-red text-2xl font-bold">Pizza App</h1>
+    <h1>Pizza App</h1>
 
     <LoginForm
       v-if="login"
@@ -57,14 +54,36 @@ function changeTheme() {
       @change-current-icon="changeCurrentIcon"
     />
 
-    <div
-      class="self-end mt-auto border-1 border-tomato-red rounded-full w-12 h-12 flex justify-center items-center hover:bg-tomato-red hover:cursor-pointer group"
-      @click="changeTheme"
-    >
-      <font-awesome-icon
-        class="text-tomato-red text-xl group-hover:text-small-gray"
-        :icon="themeIcon"
-      />
+    <div class="theme-selector-container group" @click="changeTheme">
+      <font-awesome-icon class="theme-selector-icon" :icon="themeIcon" />
     </div>
   </main>
 </template>
+
+<style>
+@reference "@/assets/main.css";
+
+main {
+  @apply flex flex-col w-screen h-screen p-8 box-border items-center overflow-hidden bg-white dark:bg-small-gray;
+}
+
+img {
+  @apply w-full md:hidden;
+}
+
+h1 {
+  @apply text-tomato-red text-2xl font-bold md:self-start;
+}
+
+.orange-div {
+  @apply bg-tomato-red rounded-full mt-[-50vh] mb-5 w-[570px] h-[555px] md:self-start md:w-[101vw] md:rounded-l md:mt-[-35vh] ml-[-4vw];
+}
+
+.theme-selector-container {
+  @apply self-end mt-auto border-1 border-tomato-red rounded-full w-12 h-12 flex justify-center items-center hover:bg-tomato-red hover:cursor-pointer;
+}
+
+.theme-selector-icon {
+  @apply text-tomato-red text-xl group-hover:text-small-gray;
+}
+</style>
