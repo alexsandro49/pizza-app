@@ -5,7 +5,7 @@ import SignUpForm from "@/components/SignUpForm.vue";
 import pizza from "@/assets/rb_29035.png";
 import { useConfigStore } from "@/stores/config";
 
-const configStore = useConfigStore()
+const configStore = useConfigStore();
 
 const login = ref(true);
 
@@ -35,6 +35,7 @@ function changeCurrentIcon() {
       v-if="login"
       :input-type="inputType"
       :input-icon="inputIcon"
+      class="form"
       @change-form-type="changeFormType"
       @change-current-icon="changeCurrentIcon"
     />
@@ -42,12 +43,19 @@ function changeCurrentIcon() {
       v-else
       :input-type="inputType"
       :input-icon="inputIcon"
+      class="form"
       @change-form-type="changeFormType"
       @change-current-icon="changeCurrentIcon"
     />
 
-    <div class="theme-selector-container group" @click="configStore.changeTheme">
-      <font-awesome-icon class="theme-selector-icon" :icon="configStore.themeIcon" />
+    <div
+      class="theme-selector-container group"
+      @click="configStore.changeTheme"
+    >
+      <font-awesome-icon
+        class="theme-selector-icon"
+        :icon="configStore.themeIcon"
+      />
     </div>
   </main>
 </template>
@@ -56,7 +64,8 @@ function changeCurrentIcon() {
 @reference "@/assets/main.css";
 
 main {
-  @apply flex flex-col w-screen h-screen p-8 box-border items-center overflow-hidden bg-white dark:bg-small-gray;
+  @apply flex flex-col w-screen h-screen p-8 box-border items-center overflow-hidden bg-white dark:bg-small-gray
+  xl:grid xl:grid-cols-5 xl:grid-rows-4;
 }
 
 img {
@@ -64,15 +73,23 @@ img {
 }
 
 h1 {
-  @apply text-tomato-red text-2xl font-bold md:self-start;
+  @apply text-tomato-red text-2xl font-bold md:self-start
+  xl:col-start-3 xl:row-start-1 xl:place-self-start xl:self-end;
 }
 
 .orange-div {
-  @apply bg-tomato-red rounded-full mt-[-50vh] mb-5 w-[570px] h-[555px] md:self-start md:w-[101vw] md:rounded-l md:mt-[-35vh] ml-[-4vw];
+  @apply bg-tomato-red rounded-full mt-[-50vh] mb-5 w-[570px] h-[555px] md:self-start md:w-[101vw] md:rounded-l md:mt-[-42vh] ml-[-4vw] md:mb-8
+  xl:col-start-1 xl:row-start-1 xl:row-span-4 xl:rounded-tr-xs xl:w-[36vw] xl:h-[111vh] xl:mt-[-8em]
+  xl:place-self-start;
+}
+
+.form {
+  @apply xl:col-start-3 xl:row-start-2 xl:col-span-2;
 }
 
 .theme-selector-container {
-  @apply self-end mt-auto border-1 border-tomato-red rounded-full w-12 h-12 flex justify-center items-center hover:bg-tomato-red hover:cursor-pointer;
+  @apply self-end mt-auto border-1 border-tomato-red rounded-full w-12 h-12 flex justify-center items-center hover:bg-tomato-red hover:cursor-pointer
+  xl:place-self-end xl:col-start-5 xl:row-start-4;
 }
 
 .theme-selector-icon {

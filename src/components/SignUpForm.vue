@@ -7,7 +7,7 @@ import { useRouter } from "vue-router";
 import { useUsersStore } from "@/stores/users";
 import { useConfigStore } from "@/stores/config";
 
-const configStore = useConfigStore()
+const configStore = useConfigStore();
 const usersStore = useUsersStore();
 
 const router = useRouter();

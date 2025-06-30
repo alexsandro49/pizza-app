@@ -6,14 +6,14 @@ export const useConfigStore = defineStore("config", {
       darkTheme: true,
     };
   },
-  actions:{
+  actions: {
     changeTheme() {
-        this.darkTheme = !this.darkTheme;
-    }
+      this.darkTheme = !this.darkTheme;
+    },
   },
   getters: {
     themeIcon(): string {
-        return this.darkTheme ? "fa-regular fa-sun" : "fa-regular fa-moon"
-    }
-  }
+      return this.darkTheme ? "fa-regular fa-sun" : "fa-regular fa-moon";
+    },
+  },
 });
