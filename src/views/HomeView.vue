@@ -60,11 +60,11 @@ function changeCurrentIcon() {
   </main>
 </template>
 
-<style>
+<style scoped>
 @reference "@/assets/main.css";
 
 main {
-  @apply flex flex-col w-screen h-screen p-8 box-border items-center overflow-hidden bg-white dark:bg-small-gray
+  @apply flex flex-col w-screen h-screen p-8 items-center overflow-hidden bg-white dark:bg-small-gray
   xl:grid xl:grid-cols-5 xl:grid-rows-4;
 }
 
