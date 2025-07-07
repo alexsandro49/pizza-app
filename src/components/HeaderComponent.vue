@@ -4,8 +4,10 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { computed } from "vue";
 import PizzaSvg from "./PizzaSvg.vue";
 import { useRouter } from "vue-router";
+import { useCartStore } from "@/stores/cart";
 
 const configStore = useConfigStore();
+const cartStore = useCartStore();
 
 const router = useRouter();
 
@@ -22,6 +24,9 @@ const pizzaColorIcon = computed(() =>
     </div>
 
     <div class="icons-container">
+      <p class="text-xl font-bold text-small-gray dark:text-white">
+        {{ cartStore.products.length === 0 ? "" : cartStore.products.length }}
+      </p>
       <font-awesome-icon icon="fa-solid fa-cart-shopping" class="icon-style" />
       <font-awesome-icon icon="fa-solid fa-circle-user" class="icon-style" />
     </div>
@@ -44,7 +49,7 @@ h1 {
 }
 
 .icons-container {
-  @apply flex justify-between items-center gap-2.5 h-12;
+  @apply flex justify-between items-center gap-2 h-12;
 }
 
 .icon-style {

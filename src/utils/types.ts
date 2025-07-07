@@ -11,3 +11,8 @@ export interface IProduct {
   price: number;
   description: string;
 }
+
+export interface IProductInCart {
+  id: string;
+  quantity: number;
+}
