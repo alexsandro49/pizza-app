@@ -5,8 +5,10 @@ import { computed } from "vue";
 import PizzaSvg from "./PizzaSvg.vue";
 import { useRouter } from "vue-router";
 import { useCartStore } from "@/stores/cart";
+import { useUsersStore } from "@/stores/users";
 
 const configStore = useConfigStore();
+const usersStore = useUsersStore();
 const cartStore = useCartStore();
 
 const router = useRouter();
@@ -14,6 +16,15 @@ const router = useRouter();
 const pizzaColorIcon = computed(() =>
   configStore.darkTheme ? "#FFFFFF" : "#646464",
 );
+
+const cartSize = computed(() =>
+  cartStore.products.length === 0 ? "" : cartStore.products.length,
+);
+
+function loggout() {
+  usersStore.changeLoggedUserId("");
+  router.push("/");
+}
 </script>
 
 <template>
@@ -25,10 +36,19 @@ const pizzaColorIcon = computed(() =>
 
     <div class="icons-container">
       <p class="text-xl font-bold text-small-gray dark:text-white">
-        {{ cartStore.products.length === 0 ? "" : cartStore.products.length }}
+        {{ cartSize }}
       </p>
       <font-awesome-icon icon="fa-solid fa-cart-shopping" class="icon-style" />
-      <font-awesome-icon icon="fa-solid fa-circle-user" class="icon-style" />
+      <font-awesome-icon
+        class="icon-style"
+        :icon="configStore.themeIcon"
+        @click="configStore.changeTheme"
+      />
+      <font-awesome-icon
+        icon="fa-solid fa-circle-user"
+        class="icon-style"
+        @click="loggout"
+      />
     </div>
   </div>
 </template>

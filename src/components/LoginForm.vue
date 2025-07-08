@@ -2,15 +2,12 @@
 import { hashHandler } from "@/utils/shared";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { onMounted, ref, watch } from "vue";
-import { useRouter } from "vue-router";
 import type { IUser } from "@/utils/types";
 import { useUsersStore } from "@/stores/users";
 import { useConfigStore } from "@/stores/config";
 
 const configStore = useConfigStore();
 const usersStore = useUsersStore();
-
-const router = useRouter();
 
 const emit = defineEmits(["changeFormType", "changeCurrentIcon"]);
 const props = defineProps<{
@@ -43,7 +40,6 @@ async function loginHandler() {
 
   if (userSaved) {
     usersStore.changeLoggedUserId(userSaved.id);
-    router.push("/catalog");
   }
 
   user.value.email = "";

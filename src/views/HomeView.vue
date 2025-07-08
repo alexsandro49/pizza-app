@@ -4,8 +4,11 @@ import LoginForm from "@/components/LoginForm.vue";
 import SignUpForm from "@/components/SignUpForm.vue";
 import pizza from "@/assets/rb_29035.png";
 import { useConfigStore } from "@/stores/config";
+import { useUsersStore } from "@/stores/users";
+import CatalogComponent from "@/components/CatalogComponent.vue";
 
 const configStore = useConfigStore();
+const usersStore = useUsersStore();
 
 const login = ref(true);
 
@@ -25,7 +28,10 @@ function changeCurrentIcon() {
 </script>
 
 <template>
-  <main :class="{ dark: configStore.darkTheme }">
+  <main
+    v-if="usersStore.loggedUserId === ''"
+    :class="{ dark: configStore.darkTheme }"
+  >
     <div class="orange-div">
       <img :src="pizza" alt="Pizza image" />
     </div>
@@ -47,17 +53,8 @@ function changeCurrentIcon() {
       @change-form-type="changeFormType"
       @change-current-icon="changeCurrentIcon"
     />
-
-    <div
-      class="theme-selector-container group"
-      @click="configStore.changeTheme"
-    >
-      <font-awesome-icon
-        class="theme-selector-icon"
-        :icon="configStore.themeIcon"
-      />
-    </div>
   </main>
+  <CatalogComponent v-else />
 </template>
 
 <style scoped>
@@ -85,14 +82,5 @@ h1 {
 
 .form {
   @apply xl:col-start-3 xl:row-start-2 xl:col-span-2;
-}
-
-.theme-selector-container {
-  @apply self-end mt-auto border-1 border-tomato-red rounded-full w-12 h-12 flex justify-center items-center hover:bg-tomato-red hover:cursor-pointer
-  xl:place-self-end xl:col-start-5 xl:row-start-4;
-}
-
-.theme-selector-icon {
-  @apply text-tomato-red text-xl group-hover:text-small-gray;
 }
 </style>
