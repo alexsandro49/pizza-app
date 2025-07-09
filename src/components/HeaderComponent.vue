@@ -18,7 +18,7 @@ const pizzaColorIcon = computed(() =>
 );
 
 const cartSize = computed(() =>
-  cartStore.products.length === 0 ? "" : cartStore.products.length,
+  cartStore.products.length > 0 ? cartStore.products.length : "",
 );
 
 function loggout() {
@@ -35,7 +35,10 @@ function loggout() {
     </div>
 
     <div class="icons-container">
-      <p class="text-xl font-bold text-small-gray dark:text-white">
+      <p
+        @click="console.log(cartSize)"
+        class="text-xl font-bold text-small-gray dark:text-white"
+      >
         {{ cartSize }}
       </p>
       <font-awesome-icon icon="fa-solid fa-cart-shopping" class="icon-style" />

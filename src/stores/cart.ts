@@ -1,35 +1,27 @@
 import type { IProductInCart } from "@/utils/types";
 import { defineStore } from "pinia";
-import { ref } from "vue";
+import { computed, ref } from "vue";
+import { useProductStore } from "./products";
 
 export const useCartStore = defineStore("cart", () => {
-  const products = ref<IProductInCart[]>([]);
+  const productStore = useProductStore();
 
-  function addProductToCart(id: string, quantity: number) {
-    const index = products.value.findIndex((product) => product.id === id);
+  const quantitySelected = ref<IProductInCart[]>(quantitySelectedHelper());
+  const products = computed(() =>
+    quantitySelected.value.filter((p) => p.quantity > 0),
+  );
 
-    if (index !== -1) {
-      if (quantity === 0) {
-        products.value.splice(index, 1);
-      }
-
-      products.value[index].quantity = quantity;
-    } else {
-      if (quantity !== 0) {
-        products.value.push({ id, quantity });
-      }
+  function addProductToCart(index: number, quantity: number) {
+    if (quantity > -1 && quantity < 101) {
+      quantitySelected.value[index].quantity = quantity;
     }
   }
 
-  function resetDisplayedQuantity(id: string) {
-    const index = products.value.findIndex((product) => product.id === id);
-
-    if (index !== -1) {
-      return products.value[index].quantity;
-    } else {
-      return 0;
-    }
+  function quantitySelectedHelper() {
+    return productStore.products.map((product) => {
+      return { id: product.id, quantity: 0 };
+    });
   }
 
-  return { products, addProductToCart, resetDisplayedQuantity };
+  return { quantitySelected, products, addProductToCart };
 });

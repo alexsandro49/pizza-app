@@ -21,39 +21,18 @@ function pizzaColorsPick(value: number): string {
   return pizzaColors[value % pizzaColors.length];
 }
 
-function increaseProductInCart(index: number) {
-  if (productsQuantity.value[index] <= 100) {
-    productsQuantity.value[index]++;
-  }
-}
-
-function reduceProductInCart(index: number) {
-  if (productsQuantity.value[index] >= 1) {
-    productsQuantity.value[index]--;
-  }
-}
-
-function addProductToCart(index: number) {
-  const id = productStore.products[index].id;
-  const quantity = productsQuantity.value[index];
-
-  cartStore.addProductToCart(id, quantity);
-  productsQuantity.value[index] = cartStore.resetDisplayedQuantity(id);
-}
-
 function goToProductPage(id: number) {
   router.push(`/${id}`);
 }
 
+function addProduct(index: number, quantity: number) {
+  cartStore.addProductToCart(index, quantity);
+}
+
 onMounted(() => {
-  cartStore.products.map((productInCart) => {
-    const index = productStore.products.findIndex(
-      (product) => product.id === productInCart.id,
-    );
-    if (index !== -1) {
-      productsQuantity.value[index] = productInCart.quantity;
-    }
-  });
+  productsQuantity.value = cartStore.quantitySelected.map((p) => p.quantity);
+
+  console.log(productStore.products);
 });
 </script>
 
@@ -82,19 +61,19 @@ onMounted(() => {
             </p>
             <button
               class="w-full py-1 border-1 text-center border-tomato-red rounded-lg cursor-pointer text-black hover:bg-tomato-red dark:text-white"
-              @click.stop="reduceProductInCart(index)"
+              @click.stop="productsQuantity[index]--"
             >
               -
             </button>
             <button
               class="w-full py-1 border-1 text-center border-tomato-red rounded-lg cursor-pointer text-black hover:bg-tomato-red dark:text-white"
-              @click.stop="increaseProductInCart(index)"
+              @click.stop="productsQuantity[index]++"
             >
               +
             </button>
 
             <font-awesome-icon
-              @click.stop="addProductToCart(index)"
+              @click.stop="addProduct(index, productsQuantity[index])"
               icon="fa-solid fa-cart-plus"
               class="w-full py-2 border-1 border-tomato-red rounded-lg hover:bg-tomato-red dark:text-white cursor-pointer"
             />
