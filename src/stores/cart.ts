@@ -1,36 +1,35 @@
 import type { IProductInCart } from "@/utils/types";
 import { defineStore } from "pinia";
+import { ref } from "vue";
 
-export const useCartStore = defineStore("cart", {
-  state(): { products: IProductInCart[] } {
-    return {
-      products: [],
-    };
-  },
-  actions: {
-    addProductToCart(id: string, quantity: number) {
-      const index = this.products.findIndex((product) => product.id === id);
+export const useCartStore = defineStore("cart", () => {
+  const products = ref<IProductInCart[]>([]);
 
-      if (index !== -1) {
-        if (quantity === 0) {
-          this.products.splice(index, 1);
-        }
+  function addProductToCart(id: string, quantity: number) {
+    const index = products.value.findIndex((product) => product.id === id);
 
-        this.products[index].quantity = quantity;
-      } else {
-        if (quantity !== 0) {
-          this.products.push({ id, quantity });
-        }
+    if (index !== -1) {
+      if (quantity === 0) {
+        products.value.splice(index, 1);
       }
-    },
-    resetDisplayedQuantity(id: string) {
-      const index = this.products.findIndex((product) => product.id === id);
 
-      if (index !== -1) {
-        return this.products[index].quantity;
-      } else {
-        return 0;
+      products.value[index].quantity = quantity;
+    } else {
+      if (quantity !== 0) {
+        products.value.push({ id, quantity });
       }
-    },
-  },
+    }
+  }
+
+  function resetDisplayedQuantity(id: string) {
+    const index = products.value.findIndex((product) => product.id === id);
+
+    if (index !== -1) {
+      return products.value[index].quantity;
+    } else {
+      return 0;
+    }
+  }
+
+  return { products, addProductToCart, resetDisplayedQuantity };
 });

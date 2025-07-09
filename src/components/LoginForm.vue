@@ -34,7 +34,7 @@ function changeCurrentIconHandler() {
 
 async function loginHandler() {
   const passwordHash = await hashHandler(user.value.password);
-  const userSaved = usersStore.getAllUsers.find((u) => {
+  const userSaved = usersStore.users.find((u) => {
     return u.password === passwordHash && u.email === user.value.email;
   });
 

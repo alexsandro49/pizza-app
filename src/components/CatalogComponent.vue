@@ -8,7 +8,6 @@ import PizzaSvg from "@/components/PizzaSvg.vue";
 import { onMounted, ref } from "vue";
 import { useCartStore } from "@/stores/cart";
 
-// const usersStore = useUsersStore();
 const configStore = useConfigStore();
 const productStore = useProductStore();
 const cartStore = useCartStore();
@@ -45,13 +44,6 @@ function addProductToCart(index: number) {
 function goToProductPage(id: number) {
   router.push(`/${id}`);
 }
-
-/*
-
-function loggout() {
-  usersStore.changeLoggedUserId("");
-  router.push("/");
-} */
 
 onMounted(() => {
   cartStore.products.map((productInCart) => {
