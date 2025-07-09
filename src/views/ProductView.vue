@@ -75,15 +75,11 @@ onMounted(() => {
           +
         </button>
 
-        <div
-          class="flex justify-center items-center w-full h-full border-2 border-tomato-red rounded-lg hover:bg-tomato-red dark:text-white cursor-pointer"
-        >
-          <font-awesome-icon
-            @click="addProduct(+productIndex, currentQuantity)"
-            icon="fa-solid fa-cart-plus"
-            class="text-lg"
-          />
-        </div>
+        <font-awesome-icon
+          @click="addProduct(+productIndex, currentQuantity)"
+          icon="fa-solid fa-cart-plus"
+          class="flex justify-center items-center py-5 w-full h-full border-2 border-tomato-red rounded-lg hover:bg-tomato-red dark:text-white cursor-pointer text-lg"
+        />
       </div>
     </div>
   </main>

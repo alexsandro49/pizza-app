@@ -31,8 +31,6 @@ function addProduct(index: number, quantity: number) {
 
 onMounted(() => {
   productsQuantity.value = cartStore.quantitySelected.map((p) => p.quantity);
-
-  console.log(productStore.products);
 });
 </script>
 

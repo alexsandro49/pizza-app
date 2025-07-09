@@ -35,13 +35,14 @@ function loggout() {
     </div>
 
     <div class="icons-container">
-      <p
-        @click="console.log(cartSize)"
-        class="text-xl font-bold text-small-gray dark:text-white"
-      >
+      <p class="text-xl font-bold text-small-gray dark:text-white">
         {{ cartSize }}
       </p>
-      <font-awesome-icon icon="fa-solid fa-cart-shopping" class="icon-style" />
+      <font-awesome-icon
+        @click="() => router.push('/cart')"
+        icon="fa-solid fa-cart-shopping"
+        class="icon-style"
+      />
       <font-awesome-icon
         class="icon-style"
         :icon="configStore.themeIcon"

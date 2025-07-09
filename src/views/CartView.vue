@@ -1,0 +1,57 @@
+<script lang="ts" setup>
+// import { useUsersStore } from "@/stores/users";
+// import { useRoute, useRouter } from "vue-router";
+import HeaderComponent from "@/components/HeaderComponent.vue";
+import { useConfigStore } from "@/stores/config";
+import { useCartStore } from "@/stores/cart";
+import CartItem from "@/components/CartItem.vue";
+
+const configStore = useConfigStore();
+const cartStore = useCartStore();
+</script>
+
+<template>
+  <main :class="{ dark: configStore.darkTheme }">
+    <HeaderComponent class="mt-[-2em]" />
+
+    <div
+      class="dark:border-tomato-red border-1 flex flex-col items-center p-3 rounded-3xl h-full w-full mt-4 overflow-y-scroll hide-scrollbar justify-start"
+    >
+      <div
+        v-for="product in cartStore.products"
+        :key="product.id"
+        class="cart-items-container"
+      >
+        <CartItem :product="product" class="cartItem" />
+      </div>
+    </div>
+  </main>
+</template>
+
+<style scoped>
+@reference "@/assets/main.css";
+
+main {
+  @apply flex flex-col items-center justify-between h-screen w-screen overflow-hidden p-8 dark:bg-small-gray;
+}
+
+.cart-items-container {
+  @apply w-full mb-3;
+}
+
+.hide-scrollbar {
+  scrollbar-width: none;
+  /* Firefox */
+  -ms-overflow-style: none;
+  /* IE 10+ */
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+  /* Chrome, Safari, Opera */
+}
+
+p {
+  @apply dark:text-white;
+}
+</style>
