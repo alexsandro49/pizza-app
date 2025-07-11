@@ -13,7 +13,7 @@ const cartStore = useCartStore();
     <HeaderComponent class="mt-[-2em]" />
 
     <div
-      class="dark:border-tomato-red border-1 flex flex-col items-center p-3 rounded-3xl h-full w-full mt-4 overflow-y-scroll hide-scrollbar justify-start"
+      class="dark:border-tomato border-1 flex flex-col items-center p-3 rounded-3xl h-full w-full mt-4 overflow-y-scroll hide-scrollbar justify-start"
     >
       <div
         v-for="product in cartStore.products.filter((p) => p.quantity > 0)"
@@ -30,7 +30,7 @@ const cartStore = useCartStore();
 @reference "@/assets/main.css";
 
 main {
-  @apply flex flex-col items-center justify-between h-screen w-screen overflow-hidden p-8 dark:bg-small-gray;
+  @apply flex flex-col items-center justify-between h-screen w-screen overflow-hidden p-8 dark:bg-charcoal;
 }
 
 .cart-items-container {
@@ -50,6 +50,6 @@ main {
 }
 
 p {
-  @apply dark:text-white;
+  @apply dark:text-isabelline;
 }
 </style>

@@ -5,10 +5,9 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  --color-tomato-red: #ff6347;
-  --color-forest-green: #228b22;
-  --color-dark-slate-gray: #2f4f4f;
-  --color-small-gray: #646464;
+  --color-tomato: #ff6347;
+  --color-charcoal: #273F4F;
+  --color-isabelline: #EFEEEA;
 
   --font-roboto: "Roboto", "sans-serif";
   --font-montserrat: "Montserrat", "sans-serif";

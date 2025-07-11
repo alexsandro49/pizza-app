@@ -34,7 +34,7 @@ function goToProductPage(productId: number) {
       <div v-for="(product, index) in productStore.products" :key="product.id">
         <div
           @click="goToProductPage(index)"
-          class="dark:border-tomato-red border-1 h-60 flex flex-col items-center gap-1.5 p-3 rounded-3xl cursor-pointer"
+          class="dark:border-tomato border-1 h-60 flex flex-col items-center gap-1.5 p-3 rounded-3xl cursor-pointer"
         >
           <PizzaSvg
             class="w-25 h-25 mt-0.5"
@@ -48,13 +48,13 @@ function goToProductPage(productId: number) {
               {{ cartStore.products[index].quantity }}
             </p>
             <button
-              class="w-full py-1 border-1 text-center border-tomato-red rounded-lg cursor-pointer text-black hover:bg-tomato-red dark:text-white"
+              class="w-full py-1 border-1 text-center border-tomato rounded-lg cursor-pointer text-black hover:bg-tomato dark:text-isabelline"
               @click.stop="cartStore.decreaseProductQuantity(product.id)"
             >
               -
             </button>
             <button
-              class="w-full py-1 border-1 text-center border-tomato-red rounded-lg cursor-pointer text-black hover:bg-tomato-red dark:text-white"
+              class="w-full py-1 border-1 text-center border-tomato rounded-lg cursor-pointer text-black hover:bg-tomato dark:text-isabelline"
               @click.stop="cartStore.increaseProductQuantity(product.id)"
             >
               +
@@ -70,7 +70,7 @@ function goToProductPage(productId: number) {
 @reference "@/assets/main.css";
 
 main {
-  @apply flex flex-col items-center justify-between h-screen w-screen overflow-hidden p-8 dark:bg-small-gray;
+  @apply flex flex-col items-center justify-between h-screen w-screen overflow-hidden p-8 dark:bg-charcoal;
 }
 
 .hide-scrollbar {

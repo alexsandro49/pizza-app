@@ -61,7 +61,7 @@ function changeCurrentIcon() {
 @reference "@/assets/main.css";
 
 main {
-  @apply flex flex-col w-screen h-screen p-8 items-center overflow-hidden bg-white dark:bg-small-gray
+  @apply flex flex-col w-screen h-screen p-8 items-center overflow-hidden bg-isabelline dark:bg-charcoal
   xl:grid xl:grid-cols-5 xl:grid-rows-4;
 }
 
@@ -70,12 +70,12 @@ img {
 }
 
 h1 {
-  @apply text-tomato-red text-2xl font-bold md:self-start
+  @apply text-tomato text-2xl font-bold md:self-start
   xl:col-start-3 xl:row-start-1 xl:place-self-start xl:self-end;
 }
 
 .orange-div {
-  @apply bg-tomato-red rounded-full mt-[-50vh] mb-5 w-[570px] h-[555px] md:self-start md:w-[101vw] md:rounded-l md:mt-[-42vh] ml-[-4vw] md:mb-8
+  @apply bg-tomato rounded-full mt-[-50vh] mb-5 w-[570px] h-[555px] md:self-start md:w-[101vw] md:rounded-l md:mt-[-42vh] ml-[-4vw] md:mb-8
   xl:col-start-1 xl:row-start-1 xl:row-span-4 xl:rounded-tr-xs xl:w-[36vw] xl:h-[111vh] xl:mt-[-8em]
   xl:place-self-start;
 }

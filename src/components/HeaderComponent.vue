@@ -14,7 +14,7 @@ const cartStore = useCartStore();
 const router = useRouter();
 
 const pizzaColorIcon = computed(() =>
-  configStore.darkTheme ? "#FFFFFF" : "#646464",
+  configStore.darkTheme ? "#EFEEEA" : "#273F4F",
 );
 
 const cartSize = computed(() => {
@@ -35,7 +35,7 @@ function loggout() {
     </div>
 
     <div class="icons-container">
-      <p class="text-xl font-bold text-small-gray dark:text-white">
+      <p class="text-xl font-bold text-charcoal dark:text-isabelline">
         {{ cartSize }}
       </p>
       <font-awesome-icon
@@ -61,11 +61,11 @@ function loggout() {
 @reference "@/assets/main.css";
 
 .container {
-  @apply flex bg-tomato-red w-screen h-20 justify-between items-center px-3;
+  @apply flex bg-tomato w-screen h-20 justify-between items-center px-3;
 }
 
 h1 {
-  @apply dark:text-white text-small-gray text-2xl font-bold;
+  @apply dark:text-isabelline text-charcoal text-2xl font-bold;
 }
 
 .title-container {
@@ -77,6 +77,6 @@ h1 {
 }
 
 .icon-style {
-  @apply dark:text-white text-small-gray inline-flex cursor-pointer h-10 w-10;
+  @apply dark:text-isabelline text-charcoal inline-flex cursor-pointer h-10 w-10;
 }
 </style>

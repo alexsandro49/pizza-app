@@ -72,7 +72,7 @@ onMounted(() => {
     class="box-border h-52 w-full items-center flex flex-col mt-4"
   >
     <p
-      class="dark:text-white font-montserrat text-small-gray mb-2 font-semibold text-base md:self-start"
+      class="dark:text-isabelline font-montserrat text-small-gray mb-2 font-semibold text-base md:self-start"
     >
       Acesse a sua conta
     </p>
@@ -82,23 +82,23 @@ onMounted(() => {
     >
       <input
         v-model="user.email"
-        class="dark:text-white dark:border-white dark:outline-white dark:placeholder:text-white mb-2 border-1 rounded-lg h-10 w-full pl-3 text-small-gray border-small-gray outline-small-gray"
+        class="dark:text-isabelline dark:border-white dark:outline-isabelline dark:placeholder:text-isabelline mb-2 border-1 rounded-lg h-10 w-full pl-3 text-small-gray border-small-gray outline-small-gray"
         type="email"
         placeholder="E-mail ou Telefone"
       />
 
       <div
-        class="dark:border-white dark:outline-white focus-within:outline-1 outline-small-gray mb-2 pr-2 w-full flex items-center h-10 border-small-gray border-1 rounded-lg focus:border-1"
+        class="dark:border-isabelline dark:outline-isabelline focus-within:outline-1 outline-small-gray mb-2 pr-2 w-full flex items-center h-10 border-small-gray border-1 rounded-lg focus:border-1"
       >
         <input
           v-model="user.password"
-          class="dark:text-white dark:placeholder:text-white h-10 border-none w-full pl-3 text-small-gray outline-none"
+          class="dark:text-isabelline dark:placeholder:text-isabelline h-10 border-none w-full pl-3 text-small-gray outline-none"
           :type="props.inputType"
           placeholder="Senha"
         />
         <font-awesome-icon
           :icon="props.inputIcon"
-          class="dark:text-white text-small-gray text-xl inline-flex cursor-pointer"
+          class="dark:text-isabelline text-charcoal text-xl inline-flex cursor-pointer"
           @click="changeCurrentIconHandler"
         />
       </div>
@@ -108,15 +108,15 @@ onMounted(() => {
       >
       <button
         @click.prevent="loginHandler"
-        class="w-full bg-tomato-red rounded-lg h-10 text-white font-bold text-xs p-1 cursor-pointer"
+        class="w-full bg-tomato rounded-lg h-10 text-isabelline font-bold text-xs p-1 cursor-pointer"
       >
         Entrar
       </button>
     </form>
 
-    <p class="dark:text-white font-montserrat mt-2 text-small-gray">
+    <p class="dark:text-isabelline font-montserrat mt-2 text-charcoal">
       Ainda não criou a sua conta?
-      <a class="text-tomato-red cursor-pointer" @click="changeFormTypeHandler"
+      <a class="text-tomato cursor-pointer" @click="changeFormTypeHandler"
         >Cadastre-se</a
       >
     </p>
@@ -124,7 +124,7 @@ onMounted(() => {
     <Transition>
       <p
         v-show="loginError"
-        class="mt-5 text-tomato-red text-base font-bold border-1 p-2 m-1"
+        class="mt-5 text-tomato text-base font-bold border-1 p-2 m-1"
       >
         CREDENCIAIS INVÁLIDAS
       </p>

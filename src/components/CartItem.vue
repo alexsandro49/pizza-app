@@ -5,6 +5,7 @@ import { useProductStore } from "@/stores/products";
 import { computed } from "vue";
 import type { IProductInCart } from "@/utils/types";
 import { useRouter } from "vue-router";
+import { useConfigStore } from "@/stores/config";
 
 const props = defineProps<{
   product: IProductInCart;
@@ -12,6 +13,11 @@ const props = defineProps<{
 
 const cartStore = useCartStore();
 const productStore = useProductStore();
+const configStore = useConfigStore();
+
+const pizzaColorIcon = computed(() =>
+  configStore.darkTheme ? "#EFEEEA" : "#273F4F",
+);
 
 const router = useRouter();
 
@@ -48,17 +54,17 @@ function goToProductPage() {
     <PizzaSvg
       @click="goToProductPage()"
       class="w-20 h-20 cursor-pointer"
-      pizza-color-icon="#FFFFFF"
+      :pizza-color-icon="pizzaColorIcon"
     />
 
-    <div class="item-details text-white h-full">
-      <p class="text-tomato-red font-bold text-lg m-y-1">
+    <div class="item-details text-charcoal dark:text-isabelline h-full">
+      <p class="text-tomato font-bold text-lg m-y-1">
         {{ productStore.products.find((p) => p.id === props.product.id)!.name }}
       </p>
       <p>Quantidade: {{ props.product.quantity }}</p>
       <p>Total: R${{ totalPrice.toFixed(2) }}</p>
 
-      <div class="self-end flex gap-1 h-full">
+      <div class="self-end flex gap-1 mt-auto">
         <font-awesome-icon
           @click="decreaseQuantity()"
           icon="fa-solid fa-minus"
@@ -83,14 +89,14 @@ function goToProductPage() {
 @reference "@/assets/main.css";
 
 .container {
-  @apply border-b-1 p-2 w-full h-[15vh] flex border-tomato-red items-center justify-around;
+  @apply border-b-1 p-2 w-full h-[16vh] flex border-tomato items-center justify-around;
 }
 
 .item-details {
-  @apply flex flex-col w-[70%] p-2;
+  @apply flex flex-col w-[70%] py-2;
 }
 
 .items-details-buttons {
-  @apply text-lg border-1 border-tomato-red p-1.5 rounded cursor-pointer hover:bg-tomato-red;
+  @apply text-lg border-1 border-tomato p-1.5 rounded cursor-pointer hover:bg-tomato;
 }
 </style>

@@ -33,7 +33,7 @@ function increaseQuantity() {
     <HeaderComponent class="mt-[-2em]" />
 
     <div
-      class="dark:border-tomato-red border-1 flex flex-col items-center p-3 rounded-3xl h-full w-full mt-4 overflow-y-scroll hide-scrollbar justify-start"
+      class="dark:border-tomato border-1 flex flex-col items-center p-3 rounded-3xl h-full w-full mt-4 overflow-y-scroll hide-scrollbar justify-start"
     >
       <PizzaSvg
         class="w-35 h-35 mt-0.5"
@@ -57,13 +57,13 @@ function increaseQuantity() {
           {{ cartStore.products[+productIndex].quantity }}
         </p>
         <button
-          class="text-2xl font-bold w-full h-full py-1 border-2 text-center border-tomato-red rounded-lg cursor-pointer text-black hover:bg-tomato-red dark:text-white"
+          class="text-2xl font-bold w-full h-full py-1 border-2 text-center border-tomato rounded-lg cursor-pointer text-black hover:bg-tomato dark:text-isabelline"
           @click="decreaseQuantity()"
         >
           -
         </button>
         <button
-          class="text-2xl font-bold w-full h-full py-1 border-2 text-center border-tomato-red rounded-lg cursor-pointer text-black hover:bg-tomato-red dark:text-white"
+          class="text-2xl font-bold w-full h-full py-1 border-2 text-center border-tomato rounded-lg cursor-pointer text-black hover:bg-tomato dark:text-isabelline"
           @click="increaseQuantity()"
         >
           +
@@ -77,7 +77,7 @@ function increaseQuantity() {
 @reference "@/assets/main.css";
 
 main {
-  @apply flex flex-col items-center justify-between h-screen w-screen overflow-hidden p-8 dark:bg-small-gray;
+  @apply flex flex-col items-center justify-between h-screen w-screen overflow-hidden p-8 dark:bg-charcoal;
 }
 
 .hide-scrollbar {
@@ -93,6 +93,6 @@ main {
 }
 
 p {
-  @apply dark:text-white;
+  @apply dark:text-isabelline;
 }
 </style>
