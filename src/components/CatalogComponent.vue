@@ -5,13 +5,11 @@ import HeaderComponent from "@/components/HeaderComponent.vue";
 import { useConfigStore } from "@/stores/config";
 import { useProductStore } from "@/stores/products";
 import PizzaSvg from "@/components/PizzaSvg.vue";
-import { onMounted, ref } from "vue";
 import { useCartStore } from "@/stores/cart";
 
 const configStore = useConfigStore();
 const productStore = useProductStore();
 const cartStore = useCartStore();
-const productsQuantity = ref(productStore.products.map(() => 0));
 
 const router = useRouter();
 
@@ -21,17 +19,9 @@ function pizzaColorsPick(value: number): string {
   return pizzaColors[value % pizzaColors.length];
 }
 
-function goToProductPage(id: number) {
-  router.push(`/${id}`);
+function goToProductPage(productId: number) {
+  router.push(`/${productId}`);
 }
-
-function addProduct(index: number, quantity: number) {
-  cartStore.addProductToCart(index, quantity);
-}
-
-onMounted(() => {
-  productsQuantity.value = cartStore.quantitySelected.map((p) => p.quantity);
-});
 </script>
 
 <template>
@@ -53,28 +43,22 @@ onMounted(() => {
           <p>{{ product.name }}</p>
           <p class="self-end">R${{ product.price.toFixed(2) }}</p>
 
-          <div class="grid w-full gap-1.5 mt-1 grid-cols-4 items-center">
+          <div class="grid w-full gap-1.5 mt-1 grid-cols-3 items-center">
             <p class="text-center text-lg px-1">
-              {{ productsQuantity[index] }}
+              {{ cartStore.products[index].quantity }}
             </p>
             <button
               class="w-full py-1 border-1 text-center border-tomato-red rounded-lg cursor-pointer text-black hover:bg-tomato-red dark:text-white"
-              @click.stop="productsQuantity[index]--"
+              @click.stop="cartStore.decreaseProductQuantity(product.id)"
             >
               -
             </button>
             <button
               class="w-full py-1 border-1 text-center border-tomato-red rounded-lg cursor-pointer text-black hover:bg-tomato-red dark:text-white"
-              @click.stop="productsQuantity[index]++"
+              @click.stop="cartStore.increaseProductQuantity(product.id)"
             >
               +
             </button>
-
-            <font-awesome-icon
-              @click.stop="addProduct(index, productsQuantity[index])"
-              icon="fa-solid fa-cart-plus"
-              class="w-full py-2 border-1 border-tomato-red rounded-lg hover:bg-tomato-red dark:text-white cursor-pointer"
-            />
           </div>
         </div>
       </div>

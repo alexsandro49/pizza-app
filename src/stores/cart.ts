@@ -1,18 +1,32 @@
 import type { IProductInCart } from "@/utils/types";
 import { defineStore } from "pinia";
-import { ref, watch } from "vue";
+import { ref } from "vue";
 import { useProductStore } from "./products";
 
 export const useCartStore = defineStore("cart", () => {
   const productStore = useProductStore();
 
-  const quantitySelected = ref<IProductInCart[]>(quantitySelectedHelper());
-  const products = ref(quantitySelected.value.filter((p) => p.quantity > 0));
+  const products = ref<IProductInCart[]>(quantitySelectedHelper());
 
-  function addProductToCart(index: number, quantity: number) {
-    if (quantity < 101) {
-      quantitySelected.value[index].quantity = quantity;
-    }
+  function findIndexByProductId(productId: string): number {
+    return products.value.findIndex((p) => p.id === productId)!;
+  }
+
+  function increaseProductQuantity(id: string) {
+    if (products.value[findIndexByProductId(id)].quantity === 100) return;
+
+    products.value[findIndexByProductId(id)].quantity++;
+  }
+
+  function decreaseProductQuantity(id: string) {
+    if (products.value[findIndexByProductId(id)].quantity === 0) return;
+
+    products.value[findIndexByProductId(id)].quantity--;
+  }
+
+  function removeProductQuantity(id: string) {
+    const currentQuantity = products.value[findIndexByProductId(id)].quantity;
+    products.value[findIndexByProductId(id)].quantity -= currentQuantity;
   }
 
   function quantitySelectedHelper() {
@@ -31,15 +45,10 @@ export const useCartStore = defineStore("cart", () => {
     return helper;
   }
 
-  watch([products.value, quantitySelected], ([newValue], []) => {
-    products.value = quantitySelected.value.filter((p) => p.quantity > 0);
-
-    if (!newValue.every((p) => p.quantity > 0)) {
-      const helper = newValue.findIndex((product) => product.quantity === 0);
-
-      products.value.slice(helper, 1);
-    }
-  });
-
-  return { quantitySelected, products, addProductToCart };
+  return {
+    products,
+    increaseProductQuantity,
+    decreaseProductQuantity,
+    removeProductQuantity,
+  };
 });

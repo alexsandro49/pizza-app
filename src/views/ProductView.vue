@@ -1,11 +1,9 @@
 <script lang="ts" setup>
-// import { useUsersStore } from "@/stores/users";
-import { useRoute, useRouter } from "vue-router";
+import { useRoute } from "vue-router";
 import HeaderComponent from "@/components/HeaderComponent.vue";
 import { useConfigStore } from "@/stores/config";
 import { useProductStore } from "@/stores/products";
 import PizzaSvg from "@/components/PizzaSvg.vue";
-import { onMounted, ref } from "vue";
 import { useCartStore } from "@/stores/cart";
 
 const configStore = useConfigStore();
@@ -13,25 +11,21 @@ const productStore = useProductStore();
 const cartStore = useCartStore();
 
 const route = useRoute();
-const router = useRouter();
 
 const productIndex = route.params.productIndex;
-const currentQuantity = ref(0);
-
 const pizzaColors = ["#FF6347", "#00CECB", "#33CA7F", "#F0F757", "#006E90"];
 
 function pizzaColorsPick(value: number): string {
   return pizzaColors[value % pizzaColors.length];
 }
 
-function addProduct(index: number, quantity: number) {
-  cartStore.addProductToCart(index, quantity);
-  router.go(-1);
+function decreaseQuantity() {
+  cartStore.decreaseProductQuantity(cartStore.products[+productIndex].id);
 }
 
-onMounted(() => {
-  currentQuantity.value = cartStore.quantitySelected[+productIndex].quantity;
-});
+function increaseQuantity() {
+  cartStore.increaseProductQuantity(cartStore.products[+productIndex].id);
+}
 </script>
 
 <template>
@@ -57,29 +51,23 @@ onMounted(() => {
 
       <div
         id="final"
-        class="grid w-full gap-4 grid-cols-4 items-center mt-auto h-15"
+        class="grid w-full gap-4 grid-cols-3 items-center mt-auto h-15"
       >
         <p class="font-bold text-center text-lg px-1">
-          {{ currentQuantity }}
+          {{ cartStore.products[+productIndex].quantity }}
         </p>
         <button
           class="text-2xl font-bold w-full h-full py-1 border-2 text-center border-tomato-red rounded-lg cursor-pointer text-black hover:bg-tomato-red dark:text-white"
-          @click="currentQuantity--"
+          @click="decreaseQuantity()"
         >
           -
         </button>
         <button
           class="text-2xl font-bold w-full h-full py-1 border-2 text-center border-tomato-red rounded-lg cursor-pointer text-black hover:bg-tomato-red dark:text-white"
-          @click="currentQuantity++"
+          @click="increaseQuantity()"
         >
           +
         </button>
-
-        <font-awesome-icon
-          @click="addProduct(+productIndex, currentQuantity)"
-          icon="fa-solid fa-cart-plus"
-          class="flex justify-center items-center py-5 w-full h-full border-2 border-tomato-red rounded-lg hover:bg-tomato-red dark:text-white cursor-pointer text-lg"
-        />
       </div>
     </div>
   </main>

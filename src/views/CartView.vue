@@ -1,6 +1,4 @@
 <script lang="ts" setup>
-// import { useUsersStore } from "@/stores/users";
-// import { useRoute, useRouter } from "vue-router";
 import HeaderComponent from "@/components/HeaderComponent.vue";
 import { useConfigStore } from "@/stores/config";
 import { useCartStore } from "@/stores/cart";
@@ -18,11 +16,11 @@ const cartStore = useCartStore();
       class="dark:border-tomato-red border-1 flex flex-col items-center p-3 rounded-3xl h-full w-full mt-4 overflow-y-scroll hide-scrollbar justify-start"
     >
       <div
-        v-for="product in cartStore.products"
+        v-for="product in cartStore.products.filter((p) => p.quantity > 0)"
         :key="product.id"
         class="cart-items-container"
       >
-        <CartItem :product="product" class="cartItem" />
+        <CartItem :product="product" :key="product.id" class="cartItem" />
       </div>
     </div>
   </main>

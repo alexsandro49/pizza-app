@@ -4,6 +4,7 @@ import PizzaSvg from "./PizzaSvg.vue";
 import { useProductStore } from "@/stores/products";
 import { computed } from "vue";
 import type { IProductInCart } from "@/utils/types";
+import { useRouter } from "vue-router";
 
 const props = defineProps<{
   product: IProductInCart;
@@ -12,7 +13,7 @@ const props = defineProps<{
 const cartStore = useCartStore();
 const productStore = useProductStore();
 
-// const productIndex = cartStore.products.findIndex((p) => p === props.product)
+const router = useRouter();
 
 const totalPrice = computed(() => {
   return (
@@ -22,24 +23,33 @@ const totalPrice = computed(() => {
 });
 
 function decreaseQuantity() {
-  cartStore.products[cartStore.products.findIndex((p) => p === props.product)]
-    .quantity--;
+  cartStore.decreaseProductQuantity(props.product.id);
 }
 
 function increaseQuantity() {
-  cartStore.products[cartStore.products.findIndex((p) => p === props.product)]
-    .quantity++;
+  cartStore.increaseProductQuantity(props.product.id);
 }
 
 function removeQuantity() {
-  const index = cartStore.products.findIndex((p) => p === props.product)!;
-  cartStore.products[index].quantity = 0;
+  cartStore.removeProductQuantity(props.product.id);
+}
+
+function goToProductPage() {
+  const productIndex = cartStore.products.findIndex(
+    (p) => p.id === props.product.id,
+  )!;
+
+  router.push(`/${productIndex}`);
 }
 </script>
 
 <template>
   <div class="container">
-    <PizzaSvg class="w-20 h-20" pizza-color-icon="#FFFFFF" />
+    <PizzaSvg
+      @click="goToProductPage()"
+      class="w-20 h-20 cursor-pointer"
+      pizza-color-icon="#FFFFFF"
+    />
 
     <div class="item-details text-white h-full">
       <p class="text-tomato-red font-bold text-lg m-y-1">

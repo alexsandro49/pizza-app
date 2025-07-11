@@ -17,9 +17,9 @@ const pizzaColorIcon = computed(() =>
   configStore.darkTheme ? "#FFFFFF" : "#646464",
 );
 
-const cartSize = computed(() =>
-  cartStore.products.length > 0 ? cartStore.products.length : "",
-);
+const cartSize = computed(() => {
+  return cartStore.products.filter((p) => p.quantity > 0).length;
+});
 
 function loggout() {
   usersStore.changeLoggedUserId("");
