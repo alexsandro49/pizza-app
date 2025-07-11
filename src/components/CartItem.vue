@@ -53,7 +53,7 @@ function goToProductPage() {
   <div class="container">
     <PizzaSvg
       @click="goToProductPage()"
-      class="w-20 h-20 cursor-pointer"
+      class="w-25 h-25 cursor-pointer"
       :pizza-color-icon="pizzaColorIcon"
     />
 
@@ -89,7 +89,7 @@ function goToProductPage() {
 @reference "@/assets/main.css";
 
 .container {
-  @apply border-b-1 p-2 w-full h-[16vh] flex border-tomato items-center justify-around;
+  @apply border-b-1 p-1 gap-2 w-full h-[17vh] flex border-tomato items-center justify-around;
 }
 
 .item-details {

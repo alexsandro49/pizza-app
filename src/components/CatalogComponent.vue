@@ -28,12 +28,24 @@ function goToProductPage(productId: number) {
   <main :class="{ dark: configStore.darkTheme }">
     <HeaderComponent class="mt-[-2em]" />
 
-    <div
-      class="w-full h-full mt-4 grid grid-cols-2 gap-2 overflow-y-scroll hide-scrollbar"
+    <p
+      @click="productStore.changeCurrentType()"
+      class="self-start py-2 text-lg cursor-pointer"
     >
-      <div v-for="(product, index) in productStore.products" :key="product.id">
+      TIPO: {{ productStore.currentType.toUpperCase() }}
+      <font-awesome-icon icon="fa-solid fa-rotate" class="ml-1" />
+    </p>
+
+    <div
+      class="w-full h-auto grid grid-cols-2 gap-2 overflow-y-scroll hide-scrollbar"
+    >
+      <div
+        v-for="(product, index) in productStore.filteredProducts()"
+        :key="product.id"
+      >
         <div
           @click="goToProductPage(index)"
+          :class="`row-start-[${index % 2}] `"
           class="dark:border-tomato border-1 h-60 flex flex-col items-center gap-1.5 p-3 rounded-3xl cursor-pointer"
         >
           <PizzaSvg
@@ -70,7 +82,7 @@ function goToProductPage(productId: number) {
 @reference "@/assets/main.css";
 
 main {
-  @apply flex flex-col items-center justify-between h-screen w-screen overflow-hidden p-8 dark:bg-charcoal;
+  @apply flex h-screen w-screen overflow-hidden p-8 dark:bg-charcoal;
 }
 
 .hide-scrollbar {
@@ -86,6 +98,6 @@ main {
 }
 
 p {
-  @apply dark:text-white;
+  @apply dark:text-isabelline text-charcoal;
 }
 </style>

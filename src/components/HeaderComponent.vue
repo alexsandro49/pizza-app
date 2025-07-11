@@ -61,7 +61,7 @@ function loggout() {
 @reference "@/assets/main.css";
 
 .container {
-  @apply flex bg-tomato w-screen h-20 justify-between items-center px-3;
+  @apply flex bg-tomato w-screen min-h-20 max-h-20 justify-between items-center px-3;
 }
 
 h1 {
