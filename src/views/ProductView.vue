@@ -29,7 +29,7 @@ function increaseQuantity() {
 </script>
 
 <template>
-  <main :class="{ dark: configStore.darkTheme }">
+  <main :class="{ dark: configStore.darkTheme }" class="flex flex-col items-center justify-between h-screen w-screen overflow-hidden p-8 dark:bg-charcoal">
     <HeaderComponent class="mt-[-2em]" />
 
     <div
@@ -76,8 +76,8 @@ function increaseQuantity() {
 <style scoped>
 @reference "@/assets/main.css";
 
-main {
-  @apply flex flex-col items-center justify-between h-screen w-screen overflow-hidden p-8 dark:bg-charcoal;
+p {
+  @apply text-charcoal dark:text-isabelline;
 }
 
 .hide-scrollbar {
@@ -90,9 +90,5 @@ main {
 .hide-scrollbar::-webkit-scrollbar {
   display: none;
   /* Chrome, Safari, Opera */
-}
-
-p {
-  @apply dark:text-isabelline;
 }
 </style>

@@ -11,16 +11,17 @@ const props = defineProps<{
   product: IProductInCart;
 }>();
 
-const cartStore = useCartStore();
-const productStore = useProductStore();
 const configStore = useConfigStore();
+const productStore = useProductStore();
+const cartStore = useCartStore();
+
+const router = useRouter();
 
 const pizzaColorIcon = computed(() =>
   configStore.darkTheme ? "#EFEEEA" : "#273F4F",
 );
 
-const router = useRouter();
-
+const productName = productStore.products.find((p) => p.id === props.product.id)!.name;
 const totalPrice = computed(() => {
   return (
     productStore.products.find((p) => p.id === props.product.id)!.price *
@@ -50,16 +51,16 @@ function goToProductPage() {
 </script>
 
 <template>
-  <div class="container">
+  <div class="border-b-1 p-1 gap-2 w-full h-[17vh] flex border-tomato items-center justify-around">
     <PizzaSvg
       @click="goToProductPage()"
       class="w-25 h-25 cursor-pointer"
       :pizza-color-icon="pizzaColorIcon"
     />
 
-    <div class="item-details text-charcoal dark:text-isabelline h-full">
-      <p class="text-tomato font-bold text-lg m-y-1">
-        {{ productStore.products.find((p) => p.id === props.product.id)!.name }}
+    <div class="flex flex-col w-[70%] py-2  text-charcoal dark:text-isabelline h-full">
+      <p class="text-tomato font-bold text-lg my-1">
+        {{ productName }}
       </p>
       <p>Quantidade: {{ props.product.quantity }}</p>
       <p>Total: R${{ totalPrice.toFixed(2) }}</p>
@@ -68,17 +69,17 @@ function goToProductPage() {
         <font-awesome-icon
           @click="decreaseQuantity()"
           icon="fa-solid fa-minus"
-          class="items-details-buttons"
+          class="button-icon"
         />
         <font-awesome-icon
           @click="increaseQuantity()"
           icon="fa-solid fa-plus"
-          class="items-details-buttons"
+          class="button-icon"
         />
         <font-awesome-icon
           @click="removeQuantity()"
           icon="fa-solid fa-trash"
-          class="items-details-buttons"
+          class="button-icon"
         />
       </div>
     </div>
@@ -88,15 +89,7 @@ function goToProductPage() {
 <style scoped>
 @reference "@/assets/main.css";
 
-.container {
-  @apply border-b-1 p-1 gap-2 w-full h-[17vh] flex border-tomato items-center justify-around;
-}
-
-.item-details {
-  @apply flex flex-col w-[70%] py-2;
-}
-
-.items-details-buttons {
-  @apply text-lg border-1 border-tomato p-1.5 rounded cursor-pointer hover:bg-tomato;
+.button-icon {
+  @apply text-lg border-1 border-tomato p-1.5 rounded cursor-pointer active:bg-tomato;
 }
 </style>

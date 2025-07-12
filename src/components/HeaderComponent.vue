@@ -21,6 +21,14 @@ const cartSize = computed(() => {
   return cartStore.products.filter((p) => p.quantity > 0).length;
 });
 
+function goToHomePage() {
+  router.push('/')
+}
+
+function goToShoppingCartPage() {
+  router.push('/cart')
+}
+
 function loggout() {
   usersStore.changeLoggedUserId("");
   router.push("/");
@@ -28,18 +36,18 @@ function loggout() {
 </script>
 
 <template>
-  <div class="container">
-    <div class="title-container">
+  <div class="flex bg-tomato w-screen min-h-20 max-h-20 justify-between items-center px-3">
+    <div class="flex items-center justify-between gap-2.5 cursor-pointer h-12">
       <PizzaSvg class="icon-style" :pizza-color-icon="pizzaColorIcon" />
-      <h1 @click="() => router.push('/')">Pizza App</h1>
+      <h1 class="dark:text-isabelline text-charcoal text-2xl font-bold" @click="goToHomePage()">Pizza App</h1>
     </div>
 
-    <div class="icons-container">
+    <div class="flex justify-between items-center gap-2 h-12">
       <p class="text-xl font-bold text-charcoal dark:text-isabelline">
         {{ cartSize }}
       </p>
       <font-awesome-icon
-        @click="() => router.push('/cart')"
+        @click="goToShoppingCartPage()"
         icon="fa-solid fa-cart-shopping"
         class="icon-style"
       />
@@ -51,7 +59,7 @@ function loggout() {
       <font-awesome-icon
         icon="fa-solid fa-circle-user"
         class="icon-style"
-        @click="loggout"
+        @click="loggout()"
       />
     </div>
   </div>
@@ -59,22 +67,6 @@ function loggout() {
 
 <style scoped>
 @reference "@/assets/main.css";
-
-.container {
-  @apply flex bg-tomato w-screen min-h-20 max-h-20 justify-between items-center px-3;
-}
-
-h1 {
-  @apply dark:text-isabelline text-charcoal text-2xl font-bold;
-}
-
-.title-container {
-  @apply flex items-center justify-between gap-2.5 cursor-pointer h-12;
-}
-
-.icons-container {
-  @apply flex justify-between items-center gap-2 h-12;
-}
 
 .icon-style {
   @apply dark:text-isabelline text-charcoal inline-flex cursor-pointer h-10 w-10;

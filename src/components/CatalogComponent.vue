@@ -1,36 +1,21 @@
 <script lang="ts" setup>
-// import { useUsersStore } from "@/stores/users";
-import { useRouter } from "vue-router";
 import HeaderComponent from "@/components/HeaderComponent.vue";
 import { useConfigStore } from "@/stores/config";
 import { useProductStore } from "@/stores/products";
-import PizzaSvg from "@/components/PizzaSvg.vue";
-import { useCartStore } from "@/stores/cart";
+import CatalogCard from "./CatalogCard.vue";
 
 const configStore = useConfigStore();
 const productStore = useProductStore();
-const cartStore = useCartStore();
-
-const router = useRouter();
-
-const pizzaColors = ["#FF6347", "#00CECB", "#33CA7F", "#F0F757", "#006E90"];
-
-function pizzaColorsPick(value: number): string {
-  return pizzaColors[value % pizzaColors.length];
-}
-
-function goToProductPage(productId: number) {
-  router.push(`/${productId}`);
-}
 </script>
 
 <template>
-  <main :class="{ dark: configStore.darkTheme }">
-    <HeaderComponent class="mt-[-2em]" />
+  <main :class="{ dark: configStore.darkTheme }" 
+  class="flex flex-col h-screen w-screen overflow-hidden p-8 dark:bg-charcoal">
+    <HeaderComponent class="mt-[-2em] ml-[-2em]" />
 
     <p
       @click="productStore.changeCurrentType()"
-      class="self-start py-2 text-lg cursor-pointer"
+      class="self-start py-2 text-lg cursor-pointer dark:text-isabelline text-charcoal"
     >
       TIPO: {{ productStore.currentType.toUpperCase() }}
       <font-awesome-icon icon="fa-solid fa-rotate" class="ml-1" />
@@ -43,47 +28,13 @@ function goToProductPage(productId: number) {
         v-for="(product, index) in productStore.filteredProducts()"
         :key="product.id"
       >
-        <div
-          @click="goToProductPage(index)"
-          :class="`row-start-[${index % 2}] `"
-          class="dark:border-tomato border-1 h-60 flex flex-col items-center gap-1.5 p-3 rounded-3xl cursor-pointer"
-        >
-          <PizzaSvg
-            class="w-25 h-25 mt-0.5"
-            :pizza-color-icon="pizzaColorsPick(index)"
-          />
-          <p>{{ product.name }}</p>
-          <p class="self-end">R${{ product.price.toFixed(2) }}</p>
-
-          <div class="grid w-full gap-1.5 mt-1 grid-cols-3 items-center">
-            <p class="text-center text-lg px-1">
-              {{ cartStore.products[index].quantity }}
-            </p>
-            <button
-              class="w-full py-1 border-1 text-center border-tomato rounded-lg cursor-pointer text-black hover:bg-tomato dark:text-isabelline"
-              @click.stop="cartStore.decreaseProductQuantity(product.id)"
-            >
-              -
-            </button>
-            <button
-              class="w-full py-1 border-1 text-center border-tomato rounded-lg cursor-pointer text-black hover:bg-tomato dark:text-isabelline"
-              @click.stop="cartStore.increaseProductQuantity(product.id)"
-            >
-              +
-            </button>
-          </div>
-        </div>
+        <CatalogCard :product :index />
       </div>
     </div>
   </main>
 </template>
 
 <style scoped>
-@reference "@/assets/main.css";
-
-main {
-  @apply flex h-screen w-screen overflow-hidden p-8 dark:bg-charcoal;
-}
 
 .hide-scrollbar {
   scrollbar-width: none;
@@ -95,9 +46,5 @@ main {
 .hide-scrollbar::-webkit-scrollbar {
   display: none;
   /* Chrome, Safari, Opera */
-}
-
-p {
-  @apply dark:text-isabelline text-charcoal;
 }
 </style>

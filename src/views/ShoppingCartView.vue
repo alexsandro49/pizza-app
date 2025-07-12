@@ -2,14 +2,15 @@
 import HeaderComponent from "@/components/HeaderComponent.vue";
 import { useConfigStore } from "@/stores/config";
 import { useCartStore } from "@/stores/cart";
-import CartItem from "@/components/CartItem.vue";
+import CartItem from "@/components/ShoppingCartCard.vue";
 
 const configStore = useConfigStore();
 const cartStore = useCartStore();
 </script>
 
 <template>
-  <main :class="{ dark: configStore.darkTheme }">
+  <main :class="{ dark: configStore.darkTheme }"
+  class="flex flex-col items-center justify-between h-screen w-screen overflow-hidden p-8 dark:bg-charcoal">
     <HeaderComponent class="mt-[-2em]" />
 
     <div
@@ -18,7 +19,7 @@ const cartStore = useCartStore();
       <div
         v-for="product in cartStore.products.filter((p) => p.quantity > 0)"
         :key="product.id"
-        class="cart-items-container"
+        class="w-full mb-3"
       >
         <CartItem :product="product" :key="product.id" class="cartItem" />
       </div>
@@ -28,14 +29,6 @@ const cartStore = useCartStore();
 
 <style scoped>
 @reference "@/assets/main.css";
-
-main {
-  @apply flex flex-col items-center justify-between h-screen w-screen overflow-hidden p-8 dark:bg-charcoal;
-}
-
-.cart-items-container {
-  @apply w-full mb-3;
-}
 
 .hide-scrollbar {
   scrollbar-width: none;
@@ -47,9 +40,5 @@ main {
 .hide-scrollbar::-webkit-scrollbar {
   display: none;
   /* Chrome, Safari, Opera */
-}
-
-p {
-  @apply dark:text-isabelline;
 }
 </style>

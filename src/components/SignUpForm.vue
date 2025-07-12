@@ -7,16 +7,16 @@ import { useRouter } from "vue-router";
 import { useUsersStore } from "@/stores/users";
 import { useConfigStore } from "@/stores/config";
 
-const configStore = useConfigStore();
-const usersStore = useUsersStore();
-
-const router = useRouter();
-
 const emit = defineEmits(["changeFormType", "changeCurrentIcon"]);
 const props = defineProps<{
   inputType: string;
   inputIcon: string;
 }>();
+
+const configStore = useConfigStore();
+const usersStore = useUsersStore();
+
+const router = useRouter();
 
 const user = ref<IUser>({
   id: "",
@@ -24,7 +24,6 @@ const user = ref<IUser>({
   email: "",
   password: "",
 });
-
 const passwordConfirmation = ref("");
 
 function changeFormTypeHandler() {
@@ -60,11 +59,11 @@ onMounted(() => {
     :class="{ dark: configStore.darkTheme }"
     class="box-border h-52 w-full items-center flex flex-col mt-4"
   >
-    <p
+    <h2
       class="dark:text-white font-montserrat text-small-gray mb-2 font-semibold text-base md:self-start"
     >
       Cadastre-se
-    </p>
+    </h2>
     <form
       class="font-montserrat flex flex-col justify-between items-end w-full"
     >

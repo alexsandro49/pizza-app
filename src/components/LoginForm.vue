@@ -6,14 +6,13 @@ import type { IUser } from "@/utils/types";
 import { useUsersStore } from "@/stores/users";
 import { useConfigStore } from "@/stores/config";
 
-const configStore = useConfigStore();
-const usersStore = useUsersStore();
-
-const emit = defineEmits(["changeFormType", "changeCurrentIcon"]);
 const props = defineProps<{
   inputType: string;
   inputIcon: string;
 }>();
+
+const configStore = useConfigStore();
+const usersStore = useUsersStore();
 
 const user = ref<IUser>({
   id: "",
@@ -21,8 +20,9 @@ const user = ref<IUser>({
   email: "",
   password: "",
 });
-
 const loginError = ref(false);
+
+const emit = defineEmits(["changeFormType", "changeCurrentIcon"]);
 
 function changeFormTypeHandler() {
   emit("changeFormType");
@@ -71,28 +71,22 @@ onMounted(() => {
     :class="{ dark: configStore.darkTheme }"
     class="box-border h-52 w-full items-center flex flex-col mt-4"
   >
-    <p
-      class="dark:text-isabelline font-montserrat text-small-gray mb-2 font-semibold text-base md:self-start"
-    >
-      Acesse a sua conta
-    </p>
+    <h2 class="text-charcoal dark:text-isabelline font-montserrat mb-2 font-semibold text-base md:self-start">Acesse a sua conta</h2>
 
-    <form
-      class="font-montserrat flex flex-col justify-between items-end w-full"
-    >
+    <form class="font-montserrat flex flex-col justify-between items-end w-full">
       <input
         v-model="user.email"
-        class="dark:text-isabelline dark:border-white dark:outline-isabelline dark:placeholder:text-isabelline mb-2 border-1 rounded-lg h-10 w-full pl-3 text-small-gray border-small-gray outline-small-gray"
+        class="dark:text-isabelline dark:border-isabelline dark:outline-isabelline dark:placeholder:text-isabelline mb-2 border-1 rounded-lg h-10 w-full pl-3 text-charcoal border-charcoal outline-charcoal"
         type="email"
         placeholder="E-mail ou Telefone"
       />
 
       <div
-        class="dark:border-isabelline dark:outline-isabelline focus-within:outline-1 outline-small-gray mb-2 pr-2 w-full flex items-center h-10 border-small-gray border-1 rounded-lg focus:border-1"
+        class="dark:border-isabelline dark:outline-isabelline focus-within:outline-1 outline-charcoal mb-2 pr-2 w-full flex items-center h-10 border-charcoal border-1 rounded-lg focus:border-1"
       >
         <input
           v-model="user.password"
-          class="dark:text-isabelline dark:placeholder:text-isabelline h-10 border-none w-full pl-3 text-small-gray outline-none"
+          class="dark:text-isabelline dark:placeholder:text-isabelline h-10 border-none w-full pl-3 text-charcoal outline-none"
           :type="props.inputType"
           placeholder="Senha"
         />
@@ -103,12 +97,12 @@ onMounted(() => {
         />
       </div>
 
-      <a class="mb-3 text-tomato-red text-base cursor-pointer"
+      <a class="text-tomato cursor-pointer mb-3 text-tomato-red text-base"
         >Esqueci a minha senha</a
       >
       <button
+      class="w-full bg-tomato rounded-lg h-10 text-isabelline font-bold text-xs p-1 cursor-pointer"
         @click.prevent="loginHandler"
-        class="w-full bg-tomato rounded-lg h-10 text-isabelline font-bold text-xs p-1 cursor-pointer"
       >
         Entrar
       </button>
@@ -132,7 +126,9 @@ onMounted(() => {
   </div>
 </template>
 
-<style>
+<style scoped>
+@reference "@/assets/main.css";
+
 .v-enter-active,
 .v-leave-active {
   transition: opacity 0.8s ease;
