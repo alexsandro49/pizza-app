@@ -21,7 +21,9 @@ const pizzaColorIcon = computed(() =>
   configStore.darkTheme ? "#EFEEEA" : "#273F4F",
 );
 
-const productName = productStore.products.find((p) => p.id === props.product.id)!.name;
+const productName = productStore.products.find(
+  (p) => p.id === props.product.id,
+)!.name;
 const totalPrice = computed(() => {
   return (
     productStore.products.find((p) => p.id === props.product.id)!.price *
@@ -51,14 +53,18 @@ function goToProductPage() {
 </script>
 
 <template>
-  <div class="border-b-1 p-1 gap-2 w-full h-[17vh] flex border-tomato items-center justify-around">
+  <div
+    class="border-b-1 p-1 gap-2 w-full h-[17vh] flex border-tomato items-center justify-around"
+  >
     <PizzaSvg
       @click="goToProductPage()"
       class="w-25 h-25 cursor-pointer"
       :pizza-color-icon="pizzaColorIcon"
     />
 
-    <div class="flex flex-col w-[70%] py-2  text-charcoal dark:text-isabelline h-full">
+    <div
+      class="flex flex-col w-[70%] py-2 text-charcoal dark:text-isabelline h-full"
+    >
       <p class="text-tomato font-bold text-lg my-1">
         {{ productName }}
       </p>

@@ -9,9 +9,10 @@ const productStore = useProductStore();
 </script>
 
 <template>
-  <main :class="{ dark: configStore.darkTheme }" 
-  class="bg-isabelline dark:bg-charcoal w-screen h-screen flex flex-col items-center overflow-hidden
-  ">
+  <main
+    :class="{ dark: configStore.darkTheme }"
+    class="bg-isabelline dark:bg-charcoal w-screen h-screen flex flex-col items-center overflow-hidden"
+  >
     <HeaderComponent class="" />
 
     <div class="w-full h-auto px-4 md:px-8 xl:px-12 overflow-hidden">
@@ -22,12 +23,9 @@ const productStore = useProductStore();
         TIPO: {{ productStore.currentType.toUpperCase() }}
         <font-awesome-icon icon="fa-solid fa-rotate" class="ml-1" />
       </p>
-  
+
       <div
-        class="w-full grid grid-cols-2 gap-2 overflow-y-scroll 
-        sm:grid-cols-3 lg:grid-cols-4
-        
-        hide-scrollbar"
+        class="w-full grid grid-cols-2 gap-2 overflow-y-scroll sm:grid-cols-3 lg:grid-cols-4 hide-scrollbar"
       >
         <div
           v-for="(product, index) in productStore.filteredProducts()"
@@ -41,7 +39,6 @@ const productStore = useProductStore();
 </template>
 
 <style scoped>
-
 .hide-scrollbar {
   scrollbar-width: none;
   /* Firefox */

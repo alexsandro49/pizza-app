@@ -9,8 +9,10 @@ const cartStore = useCartStore();
 </script>
 
 <template>
-  <main :class="{ dark: configStore.darkTheme }"
-  class="flex flex-col items-center justify-between h-screen w-screen overflow-hidden p-8 dark:bg-charcoal">
+  <main
+    :class="{ dark: configStore.darkTheme }"
+    class="flex flex-col items-center justify-between h-screen w-screen overflow-hidden p-8 dark:bg-charcoal"
+  >
     <HeaderComponent class="mt-[-2em]" />
 
     <div

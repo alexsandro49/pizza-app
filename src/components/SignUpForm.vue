@@ -3,20 +3,13 @@ import { hashHandler, hashRandomValue } from "@/utils/shared";
 import type { IUser } from "@/utils/types";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { onMounted, ref } from "vue";
-import { useRouter } from "vue-router";
 import { useUsersStore } from "@/stores/users";
 import { useConfigStore } from "@/stores/config";
 
-const emit = defineEmits(["changeFormType", "changeCurrentIcon"]);
-const props = defineProps<{
-  inputType: string;
-  inputIcon: string;
-}>();
+const emit = defineEmits(["changeFormType"]);
 
 const configStore = useConfigStore();
 const usersStore = useUsersStore();
-
-const router = useRouter();
 
 const user = ref<IUser>({
   id: "",
@@ -30,10 +23,6 @@ function changeFormTypeHandler() {
   emit("changeFormType");
 }
 
-function changeCurrentIconHandler() {
-  emit("changeCurrentIcon");
-}
-
 async function createAccount() {
   await hashRandomValue().then((value) => (user.value.id = value));
   await hashHandler(user.value.password).then(
@@ -42,8 +31,6 @@ async function createAccount() {
 
   usersStore.addUser(user.value);
   usersStore.changeLoggedUserId(user.value.id);
-
-  router.push("/catalog");
 }
 
 onMounted(() => {
@@ -84,14 +71,14 @@ onMounted(() => {
       >
         <input
           class="dark:text-white dark:placeholder:text-white h-10 border-none w-full pl-3 text-small-gray outline-none"
-          :type="props.inputType"
+          :type="configStore.inputType"
           v-model="user.password"
           placeholder="Senha"
         />
         <font-awesome-icon
-          :icon="props.inputIcon"
+          :icon="configStore.inputIcon"
           class="dark:text-white text-small-gray text-xl inline-flex cursor-pointer"
-          @click="changeCurrentIconHandler"
+          @click="configStore.changeHidePasswordInput()"
         />
       </div>
       <div
@@ -99,14 +86,14 @@ onMounted(() => {
       >
         <input
           class="dark:text-white dark:placeholder:text-white h-10 border-none w-full pl-3 text-small-gray outline-none"
-          :type="props.inputType"
+          :type="configStore.inputType"
           v-model="passwordConfirmation"
           placeholder="Confirme a sua senha"
         />
         <font-awesome-icon
-          :icon="props.inputIcon"
+          :icon="configStore.inputIcon"
           class="dark:text-white text-small-gray text-xl inline-flex cursor-pointer"
-          @click="changeCurrentIconHandler"
+          @click="configStore.changeHidePasswordInput()"
         />
       </div>
       <button
@@ -118,9 +105,7 @@ onMounted(() => {
     </form>
     <p class="dark:text-white font-montserrat mt-2 text-small-gray">
       Já criou a sua conta?
-      <span
-        class="text-tomato cursor-pointer"
-        @click="changeFormTypeHandler"
+      <span class="text-tomato cursor-pointer" @click="changeFormTypeHandler"
         >Acesse ela aqui</span
       >
     </p>

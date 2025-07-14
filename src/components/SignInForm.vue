@@ -6,10 +6,7 @@ import type { IUser } from "@/utils/types";
 import { useUsersStore } from "@/stores/users";
 import { useConfigStore } from "@/stores/config";
 
-const props = defineProps<{
-  inputType: string;
-  inputIcon: string;
-}>();
+const emit = defineEmits(["changeFormType"]);
 
 const configStore = useConfigStore();
 const usersStore = useUsersStore();
@@ -22,14 +19,8 @@ const user = ref<IUser>({
 });
 const loginError = ref(false);
 
-const emit = defineEmits(["changeFormType", "changeCurrentIcon"]);
-
 function changeFormTypeHandler() {
   emit("changeFormType");
-}
-
-function changeCurrentIconHandler() {
-  emit("changeCurrentIcon");
 }
 
 async function loginHandler() {
@@ -71,9 +62,15 @@ onMounted(() => {
     :class="{ dark: configStore.darkTheme }"
     class="box-border h-52 w-full items-center flex flex-col mt-4"
   >
-    <h2 class="text-charcoal dark:text-isabelline font-montserrat mb-2 font-semibold text-base md:self-start">Acesse a sua conta</h2>
+    <h2
+      class="text-charcoal dark:text-isabelline font-montserrat mb-2 font-semibold text-base md:self-start"
+    >
+      Acesse a sua conta
+    </h2>
 
-    <form class="font-montserrat flex flex-col justify-between items-end w-full">
+    <form
+      class="font-montserrat flex flex-col justify-between items-end w-full"
+    >
       <input
         v-model="user.email"
         class="dark:text-isabelline dark:border-isabelline dark:outline-isabelline dark:placeholder:text-isabelline mb-2 border-1 rounded-lg h-10 w-full pl-3 text-charcoal border-charcoal outline-charcoal"
@@ -87,13 +84,13 @@ onMounted(() => {
         <input
           v-model="user.password"
           class="dark:text-isabelline dark:placeholder:text-isabelline h-10 border-none w-full pl-3 text-charcoal outline-none"
-          :type="props.inputType"
+          :type="configStore.inputType"
           placeholder="Senha"
         />
         <font-awesome-icon
-          :icon="props.inputIcon"
+          :icon="configStore.inputIcon"
           class="dark:text-isabelline text-charcoal text-xl inline-flex cursor-pointer"
-          @click="changeCurrentIconHandler"
+          @click="configStore.changeHidePasswordInput()"
         />
       </div>
 
@@ -101,7 +98,7 @@ onMounted(() => {
         >Esqueci a minha senha</a
       >
       <button
-      class="w-full bg-tomato rounded-lg h-10 text-isabelline font-bold text-xs p-1 cursor-pointer"
+        class="w-full bg-tomato rounded-lg h-10 text-isabelline font-bold text-xs p-1 cursor-pointer"
         @click.prevent="loginHandler"
       >
         Entrar
