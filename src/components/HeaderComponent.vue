@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { useConfigStore } from "@/stores/config";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-import { computed } from "vue";
+import { computed, ref } from "vue";
 import PizzaSvg from "./PizzaSvg.vue";
 import { useRouter } from "vue-router";
 import { useCartStore } from "@/stores/cart";
@@ -21,12 +21,22 @@ const cartSize = computed(() => {
   return cartStore.products.filter((p) => p.quantity > 0).length;
 });
 
+const displayedFloatingMenu = ref(false);
+
 function goToHomePage() {
   router.push("/");
 }
 
 function goToShoppingCartPage() {
   router.push("/cart");
+}
+
+function goToAccountPage() {
+  router.push("/account");
+}
+
+function goToOrdersPage() {
+  router.push("/orders");
 }
 
 function loggout() {
@@ -37,7 +47,8 @@ function loggout() {
 </script>
 
 <template>
-  <div
+  <header
+    v-on:touchstart="displayedFloatingMenu = false"
     class="flex bg-tomato w-screen min-h-20 max-h-20 justify-between items-center px-4 md:px-8 xl:px-12"
   >
     <div class="flex items-center justify-between gap-2.5 cursor-pointer h-12">
@@ -64,13 +75,39 @@ function loggout() {
         :icon="configStore.themeIcon"
         @click="configStore.changeTheme"
       />
-      <font-awesome-icon
-        icon="fa-solid fa-circle-user"
-        class="icon-style"
-        @click="loggout()"
-      />
+
+      <div
+        @touchstart.stop="displayedFloatingMenu = true"
+        class="relative group flex flex-col"
+      >
+        <font-awesome-icon
+          icon="fa-solid fa-circle-user"
+          class="icon-style z-50"
+        />
+
+        <div
+          :class="{ visible: displayedFloatingMenu }"
+          class="group-hover:visible invisible top-[150%] absolute duration-400 self-end bg-tomato text-isabelline flex flex-col w-25 h-auto text-center justify-center rounded-b-2xl"
+        >
+          <a
+            class="py-1 border-b-1 border-charcoal dark:border-isabelline text-charcoal dark:text-isabelline hover:text-charcoal dark:hover:text-charcoal hover:font-bold cursor-pointer"
+            @click.stop="goToAccountPage()"
+            >Conta</a
+          >
+          <a
+            class="py-1 border-b-1 border-charcoal dark:border-isabelline text-charcoal dark:text-isabelline hover:text-charcoal dark:hover:text-charcoal hover:font-bold cursor-pointer"
+            @click.stop="goToOrdersPage()"
+            >Pedidos</a
+          >
+          <a
+            class="py-1 pb-2 text-charcoal dark:text-isabelline hover:text-charcoal dark:hover:text-charcoal hover:font-bold cursor-pointer"
+            @click.stop="loggout()"
+            >Desconectar</a
+          >
+        </div>
+      </div>
     </div>
-  </div>
+  </header>
 </template>
 
 <style scoped>

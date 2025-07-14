@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
+import { useUsersStore } from "@/stores/users";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -12,7 +13,26 @@ const router = createRouter({
     {
       path: "/cart",
       name: "cart",
+      meta: {
+        requiresAuth: true,
+      },
       component: () => import("@/views/ShoppingCartView.vue"),
+    },
+    {
+      path: "/account",
+      name: "account",
+      meta: {
+        requiresAuth: true,
+      },
+      component: () => import("@/views/AccountView.vue"),
+    },
+    {
+      path: "/orders",
+      name: "orders",
+      meta: {
+        requiresAuth: true,
+      },
+      component: () => import("@/views/OrdersView.vue"),
     },
     {
       path: "/:productIndex",
@@ -20,6 +40,21 @@ const router = createRouter({
       component: () => import("@/views/ProductView.vue"),
     },
   ],
+});
+
+router.beforeEach((to, _, next) => {
+  const usersStore = useUsersStore();
+
+  if (to.matched.some((record) => record.meta.requiresAuth)) {
+    if (usersStore.loggedUserId !== "") {
+      next();
+    } else {
+      alert("You don`t have access!");
+      next("/");
+    }
+  } else {
+    next();
+  }
 });
 
 export default router;
