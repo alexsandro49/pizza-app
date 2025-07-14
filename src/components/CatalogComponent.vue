@@ -13,26 +13,24 @@ const productStore = useProductStore();
     :class="{ dark: configStore.darkTheme }"
     class="bg-isabelline dark:bg-charcoal w-screen h-screen flex flex-col items-center overflow-hidden"
   >
-    <HeaderComponent class="" />
+    <HeaderComponent />
 
-    <div class="w-full h-auto px-4 md:px-8 xl:px-12 overflow-hidden">
-      <p
-        @click="productStore.changeCurrentType()"
-        class="self-start py-2 text-lg cursor-pointer dark:text-isabelline text-charcoal"
-      >
-        TIPO: {{ productStore.currentType.toUpperCase() }}
-        <font-awesome-icon icon="fa-solid fa-rotate" class="ml-1" />
-      </p>
+    <p
+      @click="productStore.changeCurrentType()"
+      class="self-start py-2 px-4 md:px-8 xl:px-12 text-lg cursor-pointer dark:text-isabelline text-charcoal"
+    >
+      TIPO: {{ productStore.currentType.toUpperCase() }}
+      <font-awesome-icon icon="fa-solid fa-rotate" class="ml-1" />
+    </p>
 
+    <div
+      class="w-full h-auto px-4 md:px-8 xl:px-12 pb-10 grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-4 overflow-y-scroll hide-scrollbar"
+    >
       <div
-        class="w-full grid grid-cols-2 gap-2 overflow-y-scroll sm:grid-cols-3 lg:grid-cols-4 hide-scrollbar"
+        v-for="(product, index) in productStore.filteredProducts()"
+        :key="product.id"
       >
-        <div
-          v-for="(product, index) in productStore.filteredProducts()"
-          :key="product.id"
-        >
-          <CatalogCard :product :index />
-        </div>
+        <CatalogCard :product :index />
       </div>
     </div>
   </main>
