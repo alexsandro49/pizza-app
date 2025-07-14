@@ -36,7 +36,8 @@ function loggout() {
 </script>
 
 <template>
-  <div class="flex bg-tomato w-screen min-h-20 max-h-20 justify-between items-center px-3">
+  <div class="flex bg-tomato w-screen min-h-20 max-h-20 justify-between items-center px-4
+  md:px-8 xl:px-12">
     <div class="flex items-center justify-between gap-2.5 cursor-pointer h-12">
       <PizzaSvg class="icon-style" :pizza-color-icon="pizzaColorIcon" />
       <h1 class="dark:text-isabelline text-charcoal text-2xl font-bold" @click="goToHomePage()">Pizza App</h1>
