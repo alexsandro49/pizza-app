@@ -110,7 +110,7 @@ onMounted(() => {
         />
       </div>
       <button
-        class="cursor-pointer mt-2 w-full bg-tomato-red rounded-lg h-10 text-white font-bold text-xs p-1"
+        class="bg-tomato cursor-pointer mt-2 w-full bg-tomato-red rounded-lg h-10 text-white font-bold text-xs p-1"
         @click.prevent="createAccount"
       >
         Criar conta
@@ -119,7 +119,7 @@ onMounted(() => {
     <p class="dark:text-white font-montserrat mt-2 text-small-gray">
       Já criou a sua conta?
       <span
-        class="text-tomato-red cursor-pointer"
+        class="text-tomato cursor-pointer"
         @click="changeFormTypeHandler"
         >Acesse ela aqui</span
       >

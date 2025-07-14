@@ -12,7 +12,7 @@ export const useUsersStore = defineStore("users", () => {
         "a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3",
     },
   ]);
-  const loggedUserId = ref("1");
+  const loggedUserId = ref("");
 
   function addUser(user: IUser) {
     users.value.push(user);
