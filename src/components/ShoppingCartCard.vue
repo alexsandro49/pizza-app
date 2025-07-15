@@ -1,25 +1,18 @@
 <script setup lang="ts">
 import { useCartStore } from "@/stores/cart";
-import PizzaSvg from "./PizzaSvg.vue";
 import { useProductStore } from "@/stores/products";
 import { computed } from "vue";
 import type { IProductInCart } from "@/utils/types";
 import { useRouter } from "vue-router";
-import { useConfigStore } from "@/stores/config";
 
 const props = defineProps<{
   product: IProductInCart;
 }>();
 
-const configStore = useConfigStore();
 const productStore = useProductStore();
 const cartStore = useCartStore();
 
 const router = useRouter();
-
-const pizzaColorIcon = computed(() =>
-  configStore.darkTheme ? "#EFEEEA" : "#273F4F",
-);
 
 const productName = productStore.products.find(
   (p) => p.id === props.product.id,
@@ -30,6 +23,10 @@ const totalPrice = computed(() => {
     props.product.quantity
   );
 });
+
+function getProductImage() {
+  return productStore.products.find((p) => p.id === props.product.id)!.image;
+}
 
 function decreaseQuantity() {
   cartStore.decreaseProductQuantity(props.product.id);
@@ -54,18 +51,21 @@ function goToProductPage() {
 
 <template>
   <div
+    @click="goToProductPage()"
     class="border-b-1 p-1 gap-2 w-full h-[17vh] flex border-tomato items-center justify-around"
   >
-    <PizzaSvg
-      @click="goToProductPage()"
-      class="w-25 h-25 cursor-pointer"
-      :pizza-color-icon="pizzaColorIcon"
+    <img
+      :src="getProductImage()"
+      alt="Pizza image"
+      class="w-25 h-25 mt-0.5 cursor-pointer"
     />
 
     <div
       class="flex flex-col w-[70%] py-2 text-charcoal dark:text-isabelline h-full"
     >
-      <p class="text-tomato font-bold text-lg my-1">
+      <p
+        class="text-charcoal dark:text-tomato font-bold text-lg my-1 cursor-pointer"
+      >
         {{ productName }}
       </p>
       <p>Quantidade: {{ props.product.quantity }}</p>
@@ -73,17 +73,17 @@ function goToProductPage() {
 
       <div class="self-end flex gap-1 mt-auto">
         <font-awesome-icon
-          @click="decreaseQuantity()"
+          @click.stop="decreaseQuantity()"
           icon="fa-solid fa-minus"
           class="button-icon"
         />
         <font-awesome-icon
-          @click="increaseQuantity()"
+          @click.stop="increaseQuantity()"
           icon="fa-solid fa-plus"
           class="button-icon"
         />
         <font-awesome-icon
-          @click="removeQuantity()"
+          @click.stop="removeQuantity()"
           icon="fa-solid fa-trash"
           class="button-icon"
         />
@@ -96,6 +96,6 @@ function goToProductPage() {
 @reference "@/assets/main.css";
 
 .button-icon {
-  @apply text-lg border-1 border-tomato p-1.5 rounded cursor-pointer active:bg-tomato;
+  @apply text-lg border-1 border-charcoal dark:border-tomato p-1.5 rounded cursor-pointer active:bg-charcoal active:text-isabelline dark:active:bg-tomato;
 }
 </style>

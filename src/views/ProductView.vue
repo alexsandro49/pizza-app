@@ -3,7 +3,6 @@ import { useRoute } from "vue-router";
 import HeaderComponent from "@/components/HeaderComponent.vue";
 import { useConfigStore } from "@/stores/config";
 import { useProductStore } from "@/stores/products";
-import PizzaSvg from "@/components/PizzaSvg.vue";
 import { useCartStore } from "@/stores/cart";
 
 const configStore = useConfigStore();
@@ -13,11 +12,6 @@ const cartStore = useCartStore();
 const route = useRoute();
 
 const productIndex = route.params.productIndex;
-const pizzaColors = ["#FF6347", "#00CECB", "#33CA7F", "#F0F757", "#006E90"];
-
-function pizzaColorsPick(value: number): string {
-  return pizzaColors[value % pizzaColors.length];
-}
 
 function decreaseQuantity() {
   cartStore.decreaseProductQuantity(cartStore.products[+productIndex].id);
@@ -36,11 +30,12 @@ function increaseQuantity() {
     <HeaderComponent class="mt-[-2em]" />
 
     <div
-      class="dark:border-tomato border-1 flex flex-col items-center p-3 rounded-3xl h-full w-full mt-4 overflow-y-scroll hide-scrollbar justify-start"
+      class="bg-[#ff7259] dark:bg-light-charcoal dark:border-tomato border-1 flex flex-col items-center p-3 rounded-3xl h-full w-full mt-4 overflow-y-scroll hide-scrollbar justify-start"
     >
-      <PizzaSvg
+      <img
+        :src="productStore.products[+productIndex].image"
+        alt="Pizza image"
         class="w-35 h-35 mt-0.5"
-        :pizza-color-icon="pizzaColorsPick(+productIndex)"
       />
       <p class="text-2xl mt-3">
         {{ productStore.products[+productIndex].name }}
@@ -59,18 +54,8 @@ function increaseQuantity() {
         <p class="font-bold text-center text-lg px-1">
           {{ cartStore.products[+productIndex].quantity }}
         </p>
-        <button
-          class="text-2xl font-bold w-full h-full py-1 border-2 text-center border-tomato rounded-lg cursor-pointer text-black hover:bg-tomato dark:text-isabelline"
-          @click="decreaseQuantity()"
-        >
-          -
-        </button>
-        <button
-          class="text-2xl font-bold w-full h-full py-1 border-2 text-center border-tomato rounded-lg cursor-pointer text-black hover:bg-tomato dark:text-isabelline"
-          @click="increaseQuantity()"
-        >
-          +
-        </button>
+        <button class="button-style" @click="decreaseQuantity()">-</button>
+        <button class="button-style" @click="increaseQuantity()">+</button>
       </div>
     </div>
   </main>
@@ -81,6 +66,10 @@ function increaseQuantity() {
 
 p {
   @apply text-charcoal dark:text-isabelline;
+}
+
+.button-style {
+  @apply text-2xl font-bold w-full h-full py-1 border-2 text-center border-charcoal dark:border-tomato rounded-lg cursor-pointer text-charcoal hover:bg-charcoal hover:text-isabelline active:bg-charcoal active:text-isabelline dark:hover:bg-tomato dark:text-isabelline dark:active:bg-tomato dark:active:text-isabelline;
 }
 
 .hide-scrollbar {

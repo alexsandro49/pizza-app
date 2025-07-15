@@ -37,3 +37,5 @@ npm run build
 ```sh
 npm run lint
 ```
+
+[Pizza icons created by Freepik - Flaticon](https://www.flaticon.com/free-icons/pizza)

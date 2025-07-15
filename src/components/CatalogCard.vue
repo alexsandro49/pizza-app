@@ -2,7 +2,6 @@
 import { useCartStore } from "@/stores/cart";
 import type { IProduct } from "@/utils/types";
 import { useRouter } from "vue-router";
-import PizzaSvg from "./PizzaSvg.vue";
 
 const props = defineProps<{
   product: IProduct;
@@ -11,12 +10,6 @@ const props = defineProps<{
 
 const cartStore = useCartStore();
 const router = useRouter();
-
-const pizzaColors = ["#FF6347", "#00CECB", "#33CA7F", "#F0F757", "#006E90"];
-
-function pizzaColorsPick(value: number): string {
-  return pizzaColors[value % pizzaColors.length];
-}
 
 function goToProductPage(productId: number) {
   router.push(`/${productId}`);
@@ -27,11 +20,12 @@ function goToProductPage(productId: number) {
   <div
     @click="goToProductPage(props.index)"
     :class="`row-start-[${props.index % 2}] `"
-    class="dark:border-tomato border-1 h-60 flex flex-col items-center gap-1.5 p-3 rounded-3xl cursor-pointer"
+    class="bg-[#ff7259] dark:bg-light-charcoal dark:border-tomato border-1 h-60 flex flex-col items-center gap-1.5 p-3 rounded-3xl cursor-pointer"
   >
-    <PizzaSvg
+    <img
+      :src="props.product.image"
+      alt="Pizza image"
       class="w-25 h-25 mt-0.5"
-      :pizza-color-icon="pizzaColorsPick(props.index)"
     />
 
     <p>{{ props.product.name }}</p>
@@ -65,6 +59,6 @@ p {
 }
 
 .card-button {
-  @apply w-full py-1 border-1 text-center border-tomato rounded-lg cursor-pointer text-black dark:text-isabelline active:bg-tomato;
+  @apply w-full py-1 border-1 text-center border-charcoal dark:border-tomato rounded-lg cursor-pointer text-black dark:text-isabelline active:bg-tomato;
 }
 </style>
