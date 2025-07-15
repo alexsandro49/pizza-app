@@ -13,6 +13,10 @@ const route = useRoute();
 
 const productIndex = route.params.productIndex;
 
+function getProductPath(imageName: string) {
+  return new URL(`../assets/${imageName}`, import.meta.url).href;
+}
+
 function decreaseQuantity() {
   cartStore.decreaseProductQuantity(cartStore.products[+productIndex].id);
 }
@@ -30,10 +34,10 @@ function increaseQuantity() {
     <HeaderComponent class="mt-[-2em]" />
 
     <div
-      class="bg-[#ff7259] dark:bg-light-charcoal dark:border-tomato border-1 flex flex-col items-center p-3 rounded-3xl h-full w-full mt-4 overflow-y-scroll hide-scrollbar justify-start"
+      class="bg-small-gray dark:bg-light-charcoal dark:border-tomato border-1 flex flex-col items-center p-3 rounded-3xl h-full w-full mt-4 overflow-y-scroll hide-scrollbar justify-start"
     >
       <img
-        :src="productStore.products[+productIndex].image"
+        :src="getProductPath(productStore.products[+productIndex].image)"
         alt="Pizza image"
         class="w-35 h-35 mt-0.5"
       />
@@ -65,11 +69,11 @@ function increaseQuantity() {
 @reference "@/assets/main.css";
 
 p {
-  @apply text-charcoal dark:text-isabelline;
+  @apply text-isabelline;
 }
 
 .button-style {
-  @apply text-2xl font-bold w-full h-full py-1 border-2 text-center border-charcoal dark:border-tomato rounded-lg cursor-pointer text-charcoal hover:bg-charcoal hover:text-isabelline active:bg-charcoal active:text-isabelline dark:hover:bg-tomato dark:text-isabelline dark:active:bg-tomato dark:active:text-isabelline;
+  @apply text-2xl font-bold w-full h-full py-1 border-2 text-center border-isabelline dark:border-tomato rounded-lg cursor-pointer text-isabelline hover:bg-tomato active:bg-tomato;
 }
 
 .hide-scrollbar {

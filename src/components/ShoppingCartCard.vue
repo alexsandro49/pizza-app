@@ -28,6 +28,10 @@ function getProductImage() {
   return productStore.products.find((p) => p.id === props.product.id)!.image;
 }
 
+function getProductPath(imageName: string) {
+  return new URL(`../assets/${imageName}`, import.meta.url).href;
+}
+
 function decreaseQuantity() {
   cartStore.decreaseProductQuantity(props.product.id);
 }
@@ -55,17 +59,13 @@ function goToProductPage() {
     class="border-b-1 p-1 gap-2 w-full h-[17vh] flex border-tomato items-center justify-around"
   >
     <img
-      :src="getProductImage()"
+      :src="getProductPath(getProductImage())"
       alt="Pizza image"
       class="w-25 h-25 mt-0.5 cursor-pointer"
     />
 
-    <div
-      class="flex flex-col w-[70%] py-2 text-charcoal dark:text-isabelline h-full"
-    >
-      <p
-        class="text-charcoal dark:text-tomato font-bold text-lg my-1 cursor-pointer"
-      >
+    <div class="flex flex-col w-[70%] py-2 text-isabelline h-full">
+      <p class="text-tomato font-bold text-lg my-1 cursor-pointer">
         {{ productName }}
       </p>
       <p>Quantidade: {{ props.product.quantity }}</p>
@@ -96,6 +96,6 @@ function goToProductPage() {
 @reference "@/assets/main.css";
 
 .button-icon {
-  @apply text-lg border-1 border-charcoal dark:border-tomato p-1.5 rounded cursor-pointer active:bg-charcoal active:text-isabelline dark:active:bg-tomato;
+  @apply text-lg border-1 border-isabelline dark:border-tomato p-1.5 rounded cursor-pointer hover:bg-tomato active:bg-tomato;
 }
 </style>

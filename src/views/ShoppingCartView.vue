@@ -16,7 +16,7 @@ const cartStore = useCartStore();
     <HeaderComponent class="mt-[-2em]" />
 
     <div
-      class="bg-[#ff7259] dark:bg-light-charcoal dark:border-tomato border-1 flex flex-col items-center p-3 rounded-3xl h-full w-full mt-4 overflow-y-scroll hide-scrollbar justify-start"
+      class="bg-small-gray dark:bg-light-charcoal border-charcoal dark:border-tomato border-1 flex flex-col items-center p-3 rounded-3xl h-full w-full mt-4 overflow-y-scroll hide-scrollbar justify-start"
     >
       <div
         v-for="product in cartStore.products.filter((p) => p.quantity > 0)"

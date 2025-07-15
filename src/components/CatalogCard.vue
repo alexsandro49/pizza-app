@@ -11,6 +11,10 @@ const props = defineProps<{
 const cartStore = useCartStore();
 const router = useRouter();
 
+function getProductPath(imageName: string) {
+  return new URL(`../assets/${imageName}`, import.meta.url).href;
+}
+
 function goToProductPage(productId: number) {
   router.push(`/${productId}`);
 }
@@ -20,10 +24,10 @@ function goToProductPage(productId: number) {
   <div
     @click="goToProductPage(props.index)"
     :class="`row-start-[${props.index % 2}] `"
-    class="bg-[#ff7259] dark:bg-light-charcoal dark:border-tomato border-1 h-60 flex flex-col items-center gap-1.5 p-3 rounded-3xl cursor-pointer"
+    class="bg-small-gray dark:bg-light-charcoal border-charcoal dark:border-tomato border-1 h-60 flex flex-col items-center gap-1.5 p-3 rounded-3xl cursor-pointer"
   >
     <img
-      :src="props.product.image"
+      :src="getProductPath(props.product.image)"
       alt="Pizza image"
       class="w-25 h-25 mt-0.5"
     />
@@ -55,10 +59,10 @@ function goToProductPage(productId: number) {
 @reference "@/assets/main.css";
 
 p {
-  @apply dark:text-isabelline text-charcoal;
+  @apply text-isabelline;
 }
 
 .card-button {
-  @apply w-full py-1 border-1 text-center border-charcoal dark:border-tomato rounded-lg cursor-pointer text-black dark:text-isabelline active:bg-tomato;
+  @apply w-full py-1 border-1 text-center border-isabelline dark:border-tomato rounded-lg cursor-pointer text-isabelline hover:bg-tomato active:bg-tomato;
 }
 </style>
