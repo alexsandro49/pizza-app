@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { useCartStore } from "@/stores/cart";
 import type { IProduct } from "@/utils/types";
+import { ref } from "vue";
 import { useRouter } from "vue-router";
 
 const props = defineProps<{
@@ -10,6 +11,9 @@ const props = defineProps<{
 
 const cartStore = useCartStore();
 const router = useRouter();
+
+const minusButtonClicked = ref(false);
+const plusButtonClicked = ref(false);
 
 function getProductPath(imageName: string) {
   return new URL(`../assets/${imageName}`, import.meta.url).href;
@@ -40,12 +44,18 @@ function goToProductPage(productId: number) {
         {{ cartStore.products[props.index].quantity }}
       </p>
       <button
+        v-on:touchstart="minusButtonClicked = true"
+        v-on:touchend="minusButtonClicked = false"
+        :class="{ 'bg-tomato': minusButtonClicked }"
         class="card-button"
         @click.stop="cartStore.decreaseProductQuantity(product.id)"
       >
         -
       </button>
       <button
+        v-on:touchstart="plusButtonClicked = true"
+        v-on:touchend="plusButtonClicked = false"
+        :class="{ 'bg-tomato': plusButtonClicked }"
         class="card-button"
         @click.stop="cartStore.increaseProductQuantity(product.id)"
       >
@@ -63,6 +73,6 @@ p {
 }
 
 .card-button {
-  @apply w-full py-1 border-1 text-center border-isabelline dark:border-tomato rounded-lg cursor-pointer text-isabelline hover:bg-tomato active:bg-tomato;
+  @apply w-full py-1 border-1 text-center border-isabelline dark:border-tomato rounded-lg cursor-pointer text-isabelline hover:bg-tomato;
 }
 </style>

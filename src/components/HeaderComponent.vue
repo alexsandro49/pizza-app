@@ -41,7 +41,8 @@ function goToOrdersPage() {
 
 function loggout() {
   configStore.displaySignInForm = true;
-  usersStore.changeLoggedUserId("");
+
+  usersStore.loggout();
   router.push("/");
 }
 </script>

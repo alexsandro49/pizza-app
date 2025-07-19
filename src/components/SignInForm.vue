@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import { hashHandler } from "@/utils/shared";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { onMounted, ref, watch } from "vue";
 import type { IUser } from "@/utils/types";
@@ -24,14 +23,7 @@ function changeFormTypeHandler() {
 }
 
 async function loginHandler() {
-  const passwordHash = await hashHandler(user.value.password);
-  const userSaved = usersStore.users.find((u) => {
-    return u.password === passwordHash && u.email === user.value.email;
-  });
-
-  if (userSaved) {
-    usersStore.changeLoggedUserId(userSaved.id);
-  }
+  await usersStore.login(user.value.email, user.value.password);
 
   user.value.email = "";
   user.value.password = "";

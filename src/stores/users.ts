@@ -1,25 +1,47 @@
+import api from "@/utils/shared";
 import type { IUser } from "@/utils/types";
 import { defineStore } from "pinia";
 import { ref } from "vue";
 
 export const useUsersStore = defineStore("users", () => {
-  const users = ref([
-    {
-      id: "8bc13994fbc8c90e412fba8e7bfdff4befc76dda10ad77e244ef03105c74c2cd",
-      name: "User 1",
-      email: "user1@email.com",
-      password:
-        "a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3",
-    },
-  ]);
-  const loggedUserId = ref("1");
+  const userData = ref<IUser>();
 
-  function addUser(user: IUser) {
-    users.value.push(user);
-  }
-  function changeLoggedUserId(id: string) {
-    loggedUserId.value = id;
+  async function register(name: string, email: string, password: string) {
+    try {
+      await api
+        .post("/auth/register", {
+          name,
+          email,
+          password,
+        })
+        .then((user) => {
+          userData.value = user.data;
+        });
+
+      console.log(userData);
+    } catch (error) {
+      console.log(error);
+    }
   }
 
-  return { users, loggedUserId, addUser, changeLoggedUserId };
+  async function login(email: string, password: string) {
+    try {
+      await api
+        .post("/auth/login", {
+          email,
+          password,
+        })
+        .then((user) => {
+          userData.value = user.data;
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  function loggout() {
+    userData.value = undefined;
+  }
+
+  return { userData, register, login, loggout };
 });

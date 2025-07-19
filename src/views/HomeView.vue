@@ -12,7 +12,7 @@ const usersStore = useUsersStore();
 
 <template>
   <main
-    v-if="usersStore.loggedUserId === ''"
+    v-if="usersStore.userData === undefined"
     :class="{ dark: configStore.darkTheme }"
     class="bg-isabelline dark:bg-charcoal w-screen h-screen flex flex-col items-center overflow-hidden xl:flex-row"
   >

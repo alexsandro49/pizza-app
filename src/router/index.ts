@@ -46,7 +46,7 @@ router.beforeEach((to, _, next) => {
   const usersStore = useUsersStore();
 
   if (to.matched.some((record) => record.meta.requiresAuth)) {
-    if (usersStore.loggedUserId !== "") {
+    if (usersStore.userData !== undefined) {
       next();
     } else {
       alert("You don`t have access!");

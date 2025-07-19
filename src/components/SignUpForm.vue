@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import { hashHandler, hashRandomValue } from "@/utils/shared";
 import type { IUser } from "@/utils/types";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { onMounted, ref } from "vue";
@@ -24,13 +23,11 @@ function changeFormTypeHandler() {
 }
 
 async function createAccount() {
-  await hashRandomValue().then((value) => (user.value.id = value));
-  await hashHandler(user.value.password).then(
-    (value) => (user.value.password = value),
+  await usersStore.register(
+    user.value.name,
+    user.value.email,
+    user.value.password,
   );
-
-  usersStore.addUser(user.value);
-  usersStore.changeLoggedUserId(user.value.id);
 }
 
 onMounted(() => {
