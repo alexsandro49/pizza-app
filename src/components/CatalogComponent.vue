@@ -3,9 +3,17 @@ import HeaderComponent from "@/components/HeaderComponent.vue";
 import { useConfigStore } from "@/stores/config";
 import { useProductStore } from "@/stores/products";
 import CatalogCard from "./CatalogCard.vue";
+import { onMounted } from "vue";
+import { useCartStore } from "@/stores/shoppingCart";
 
 const configStore = useConfigStore();
 const productStore = useProductStore();
+const cartStore = useCartStore();
+
+onMounted(async () => {
+  await productStore.fetchProducts()
+  cartStore.quantitySelectedHelper()
+})
 </script>
 
 <template>

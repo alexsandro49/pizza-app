@@ -8,7 +8,7 @@ export const useCartStore = defineStore(
   () => {
     const productStore = useProductStore();
 
-    const products = ref<IProductInCart[]>(quantitySelectedHelper());
+    const products = ref<IProductInCart[]>([]);
 
     function findIndexByProductId(productId: string): number {
       return products.value.findIndex((p) => p.id === productId)!;
@@ -32,18 +32,9 @@ export const useCartStore = defineStore(
     }
 
     function quantitySelectedHelper() {
-      // return productStore.products.map((product) => {
-      //   return { id: product.id, quantity: 0 };
-      // });
-
       const helper = productStore.products.map((product) => {
-        return { id: product.id, quantity: 0 };
+        products.value.push({ id: product.id, quantity: 0 });
       });
-
-      helper[0].quantity = 2;
-      helper[1].quantity = 5;
-      helper[2].quantity = 5;
-      helper[3].quantity = 2;
       return helper;
     }
 
@@ -52,9 +43,7 @@ export const useCartStore = defineStore(
       increaseProductQuantity,
       decreaseProductQuantity,
       removeProductQuantity,
+      quantitySelectedHelper
     };
-  },
-  {
-    persist: true,
-  },
+  }
 );

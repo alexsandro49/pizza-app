@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { useCartStore } from "@/stores/cart";
+import { useCartStore } from "@/stores/shoppingCart";
 import type { IProduct } from "@/utils/types";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
@@ -31,7 +31,7 @@ function goToProductPage(productId: number) {
     class="bg-small-gray dark:bg-light-charcoal border-charcoal dark:border-tomato border-1 h-60 flex flex-col items-center gap-1.5 p-3 rounded-3xl cursor-pointer"
   >
     <img
-      :src="getProductPath(props.product.image)"
+      :src="getProductPath(props.product.imageName)"
       alt="Pizza image"
       class="w-25 h-25 mt-0.5"
     />
@@ -41,7 +41,7 @@ function goToProductPage(productId: number) {
 
     <div class="grid w-full gap-1.5 mt-1 grid-cols-3 items-center">
       <p class="text-center text-lg px-1 self-end">
-        {{ cartStore.products[props.index].quantity }}
+        {{ cartStore.products.length > 0 ? cartStore.products[props.index].quantity : 0 }}
       </p>
       <button
         v-on:touchstart="minusButtonClicked = true"

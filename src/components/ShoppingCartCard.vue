@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useCartStore } from "@/stores/cart";
+import { useCartStore } from "@/stores/shoppingCart";
 import { useProductStore } from "@/stores/products";
 import { computed } from "vue";
 import type { IProductInCart } from "@/utils/types";
@@ -25,7 +25,7 @@ const totalPrice = computed(() => {
 });
 
 function getProductImage() {
-  return productStore.products.find((p) => p.id === props.product.id)!.image;
+  return productStore.products.find((p) => p.id === props.product.id)!.imageName;
 }
 
 function getProductPath(imageName: string) {

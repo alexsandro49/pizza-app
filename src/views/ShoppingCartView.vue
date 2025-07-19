@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import HeaderComponent from "@/components/HeaderComponent.vue";
 import { useConfigStore } from "@/stores/config";
-import { useCartStore } from "@/stores/cart";
+import { useCartStore } from "@/stores/shoppingCart";
 import CartItem from "@/components/ShoppingCartCard.vue";
 
 const configStore = useConfigStore();

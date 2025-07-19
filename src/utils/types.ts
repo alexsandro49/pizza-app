@@ -11,7 +11,7 @@ export interface IProduct {
   price: number;
   type: string;
   description: string;
-  image: string;
+  imageName: string;
 }
 
 export interface IProductInCart {

@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { computed, ref } from "vue";
 import PizzaSvg from "./PizzaSvg.vue";
 import { useRouter } from "vue-router";
-import { useCartStore } from "@/stores/cart";
+import { useCartStore } from "@/stores/shoppingCart";
 import { useUsersStore } from "@/stores/users";
 
 const configStore = useConfigStore();

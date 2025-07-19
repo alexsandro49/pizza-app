@@ -3,7 +3,7 @@ import { useRoute } from "vue-router";
 import HeaderComponent from "@/components/HeaderComponent.vue";
 import { useConfigStore } from "@/stores/config";
 import { useProductStore } from "@/stores/products";
-import { useCartStore } from "@/stores/cart";
+import { useCartStore } from "@/stores/shoppingCart";
 
 const configStore = useConfigStore();
 const productStore = useProductStore();
@@ -37,7 +37,7 @@ function increaseQuantity() {
       class="bg-small-gray dark:bg-light-charcoal dark:border-tomato border-1 flex flex-col items-center p-3 rounded-3xl h-full w-full mt-4 overflow-y-scroll hide-scrollbar justify-start"
     >
       <img
-        :src="getProductPath(productStore.products[+productIndex].image)"
+        :src="getProductPath(productStore.products[+productIndex].imageName)"
         alt="Pizza image"
         class="w-35 h-35 mt-0.5"
       />
@@ -73,7 +73,8 @@ p {
 }
 
 .button-style {
-  @apply text-2xl font-bold w-full h-full py-1 border-2 text-center border-isabelline dark:border-tomato rounded-lg cursor-pointer text-isabelline hover:bg-tomato active:bg-tomato;
+  @apply text-2xl font-bold w-full h-full py-1 border-2 text-center border-isabelline 
+  dark:border-tomato rounded-lg cursor-pointer text-isabelline hover:bg-tomato active:bg-tomato;
 }
 
 .hide-scrollbar {
