@@ -12,12 +12,19 @@ O objetivo é demonstrar boas práticas na criação de interfaces modernas e re
 ---
 
 ## 🚀 Tecnologias utilizadas
-
+### Front-end:
+- [TypeScript](https://www.typescriptlang.org/)
 - [Vue.js](https://vuejs.org/)
 - [Pinia](https://pinia.vuejs.org/)
-- [TypeScript](https://www.typescriptlang.org/)
 - [TailwindCSS](https://tailwindcss.com/)
 - [Vite](https://vitejs.dev/)
+### Back-end:
+- [TypeScript](https://www.typescriptlang.org/)
+- [Express.js](https://expressjs.com/)
+- [Prisma ORM](https://www.prisma.io/)
+- [PostgreSQL](https://www.postgresql.org/)
+- [Docker](https://www.docker.com/)
+- [Docker Compose](https://docs.docker.com/compose/)
 
 ---
 
@@ -37,7 +44,7 @@ src/
 ├── assets/         # Imagens e ícones
 ├── components/     # Componentes reutilizáveis
 ├── routes/         # Configuração das rotas (Vue Router)
-├── stores/          # Pinia stores
+├── stores/         # Pinia stores
 ├── types/          # Tipagens TypeScript
 ├── utils/          # Funções utilitárias
 ├── App.vue         # Componente raiz
