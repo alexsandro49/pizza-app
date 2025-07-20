@@ -11,9 +11,9 @@ const productStore = useProductStore();
 const cartStore = useCartStore();
 
 onMounted(async () => {
-  await productStore.fetchProducts()
-  cartStore.quantitySelectedHelper()
-})
+  await productStore.fetchProducts();
+  cartStore.quantitySelectedHelper();
+});
 </script>
 
 <template>

@@ -26,10 +26,16 @@ export const useProductStore = defineStore(
     }
 
     async function fetchProducts() {
-      products.value = (await api.get("/product")).data
+      products.value = (await api.get("/product")).data;
     }
 
-    return { products, currentType, changeCurrentType, filteredProducts, fetchProducts };
+    return {
+      products,
+      currentType,
+      changeCurrentType,
+      filteredProducts,
+      fetchProducts,
+    };
   },
   {
     persist: true,

@@ -41,7 +41,11 @@ function goToProductPage(productId: number) {
 
     <div class="grid w-full gap-1.5 mt-1 grid-cols-3 items-center">
       <p class="text-center text-lg px-1 self-end">
-        {{ cartStore.products.length > 0 ? cartStore.products[props.index].quantity : 0 }}
+        {{
+          cartStore.products.length > 0
+            ? cartStore.products[props.index].quantity
+            : 0
+        }}
       </p>
       <button
         v-on:touchstart="minusButtonClicked = true"

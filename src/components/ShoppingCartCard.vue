@@ -25,7 +25,8 @@ const totalPrice = computed(() => {
 });
 
 function getProductImage() {
-  return productStore.products.find((p) => p.id === props.product.id)!.imageName;
+  return productStore.products.find((p) => p.id === props.product.id)!
+    .imageName;
 }
 
 function getProductPath(imageName: string) {
