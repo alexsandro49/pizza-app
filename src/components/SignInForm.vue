@@ -27,32 +27,28 @@ async function loginHandler() {
 
   user.value.email = "";
   user.value.password = "";
+  loginError.value = true;
 }
 
-watch([user.value.email, user.value.password], () => {
-  loginError.value = false;
-
+watch([() => user.value.email, () => user.value.password], () => {
   if (
-    user.value.email === "" &&
-    user.value.password === "" &&
-    !loginError.value
+    (user.value.email !== "" || user.value.password !== "") &&
+    loginError.value
   ) {
-    loginError.value = true;
+    loginError.value = false;
   }
 });
 
 onMounted(() => {
-  user.value.id = "";
   user.value.name = "";
   user.value.email = "";
-  user.value.password = "";
 });
 </script>
 
 <template>
   <div
     :class="{ dark: configStore.darkTheme }"
-    class="box-border h-52 w-full items-center flex flex-col mt-4"
+    class="h-80 w-full items-center flex flex-col mt-4"
   >
     <h2
       class="text-charcoal dark:text-isabelline font-montserrat mb-2 font-semibold text-base md:self-start"
@@ -67,7 +63,7 @@ onMounted(() => {
         v-model="user.email"
         class="dark:text-isabelline dark:border-isabelline dark:outline-isabelline dark:placeholder:text-isabelline mb-2 border-1 rounded-lg h-10 w-full pl-3 text-charcoal border-charcoal outline-charcoal"
         type="email"
-        placeholder="E-mail ou Telefone"
+        placeholder="Email"
       />
 
       <div
@@ -104,27 +100,15 @@ onMounted(() => {
       >
     </p>
 
-    <Transition>
-      <p
-        v-show="loginError"
-        class="mt-5 text-tomato text-base font-bold border-1 p-2 m-1"
-      >
-        CREDENCIAIS INVÁLIDAS
-      </p>
-    </Transition>
+    <p
+      :class="{ visible: loginError }"
+      class="mt-5 text-tomato text-base font-bold border-1 p-2 m-1 invisible"
+    >
+      CREDENCIAIS INVÁLIDAS
+    </p>
   </div>
 </template>
 
 <style scoped>
 @reference "@/assets/main.css";
-
-.v-enter-active,
-.v-leave-active {
-  transition: opacity 0.8s ease;
-}
-
-.v-enter-from,
-.v-leave-to {
-  opacity: 0;
-}
 </style>

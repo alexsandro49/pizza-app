@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type { IUser } from "@/utils/types";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-import { onMounted, ref } from "vue";
+import { onMounted, ref, watch } from "vue";
 import { useUsersStore } from "@/stores/users";
 import { useConfigStore } from "@/stores/config";
 
@@ -18,23 +18,49 @@ const user = ref<IUser>({
 });
 const passwordConfirmation = ref("");
 
+const signUpError = ref(false);
+
 function changeFormTypeHandler() {
   emit("changeFormType");
 }
 
-async function createAccount() {
-  await usersStore.register(
-    user.value.name,
-    user.value.email,
-    user.value.password,
-  );
+function validateEmail(value: string) {
+  const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return regex.test(value);
 }
 
+async function createAccount() {
+  if (
+    user.value.name !== "" &&
+    user.value.email !== "" &&
+    user.value.password !== "" &&
+    user.value.password === passwordConfirmation.value &&
+    validateEmail(user.value.email)
+  ) {
+    await usersStore.register(
+      user.value.name,
+      user.value.email,
+      user.value.password,
+    );
+  }
+
+  signUpError.value = true;
+}
+
+watch([() => user.value.password, () => passwordConfirmation.value], () => {
+  if (
+    (user.value.password !== "" || passwordConfirmation.value !== "") &&
+    signUpError.value
+  ) {
+    signUpError.value = false;
+  }
+});
+
 onMounted(() => {
-  user.value.id = "";
   user.value.name = "";
   user.value.email = "";
   user.value.password = "";
+  passwordConfirmation.value = "";
 });
 </script>
 
@@ -61,7 +87,7 @@ onMounted(() => {
         class="dark:text-white dark:border-white dark:outline-white dark:placeholder:text-white mb-2 border-1 rounded-lg h-10 w-full pl-3 text-small-gray border-small-gray"
         type="email"
         v-model="user.email"
-        placeholder="E-mail ou Telefone"
+        placeholder="Seu melhor E-mail"
       />
       <div
         class="dark:border-white dark:outline-white focus-within:outline-1 outline-small-gray mb-2 pr-2 w-full flex items-center h-10 border-small-gray border-1 rounded-lg focus:border-1"
@@ -105,6 +131,13 @@ onMounted(() => {
       <span class="text-tomato cursor-pointer" @click="changeFormTypeHandler"
         >Acesse ela aqui</span
       >
+    </p>
+
+    <p
+      :class="{ visible: signUpError }"
+      class="mt-5 text-tomato text-base font-bold border-1 p-2 m-1 invisible"
+    >
+      CREDENCIAIS INVÁLIDAS
     </p>
   </div>
 </template>
