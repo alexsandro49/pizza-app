@@ -1,41 +1,96 @@
-# pizza-app
+# 🍕 Pizza App
 
-This template should help get you started developing with Vue 3 in Vite.
+**Pizza App** é um projeto exemplo de um site de pizzaria desenvolvido com **Vue.js**, **Pinia**, **TypeScript** e **TailwindCSS**.  
+O objetivo é demonstrar boas práticas na criação de interfaces modernas e reativas utilizando o ecossistema Vue.
 
-## Recommended IDE Setup
+---
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+## 📸 Preview
 
-## Type Support for `.vue` Imports in TS
+![Imagem do projeto em execução](https://github.com/alexsandro49/pizza-app/blob/main/screenshot.png)
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+---
 
-## Customize configuration
+## 🚀 Tecnologias utilizadas
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+- [Vue.js](https://vuejs.org/)
+- [Pinia](https://pinia.vuejs.org/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [TailwindCSS](https://tailwindcss.com/)
+- [Vite](https://vitejs.dev/)
 
-## Project Setup
+---
 
-```sh
-npm install
+## 🧱 Funcionalidades
+
+- Listagem de sabores de pizza
+- Filtro por tipo (tradicional, especial, doce, etc)
+- Exibição de preços e descrições
+- Carrinho de compras
+- Design responsivo
+
+---
+
+## 📁 Estrutura de Pastas
+```
+src/
+├── assets/         # Imagens e ícones
+├── components/     # Componentes reutilizáveis
+├── routes/         # Configuração das rotas (Vue Router)
+├── stores/          # Pinia stores
+├── types/          # Tipagens TypeScript
+├── utils/          # Funções utilitárias
+├── App.vue         # Componente raiz
+├── main.ts         # Inicialização do app
 ```
 
-### Compile and Hot-Reload for Development
+## Como executar o projeto:
+### Preparando a API:
+1. Clone o repositório da API na sua máquina:
+   ```
+   git clone https://github.com/alexsandro49/pizza-app-backend.git
+   ```
+2. Entre na pasta do repositório:
+   ```
+   cd pizza-app-backend/
+   ```
+3. Instale as dependências:
+   ```
+   npm install
+   ```
+4. Inicie o container com o banco de dados:
+   ```
+   docker compose up -d
+   ```
+5. Execute a API:
+   ```
+   npm run dev
+   ```
 
-```sh
-npm run dev
-```
+#### A API é necessária para o acesso ao banco de dados.
 
-### Type-Check, Compile and Minify for Production
+### Preparando o front-end:
+1. Clone o repositório do front-end na sua máquina:
+   ```
+   git clone https://github.com/alexsandro49/pizza-app.git
+   ```
+2. Entre na pasta do repositório:
+   ```
+   cd pizz-app/
+   ```
+3. instale as dependências:
+   ```
+   npm install
+   ```
+4. Execute o front-end:
+   ```
+   npm run dev
+   ```
 
-```sh
-npm run build
-```
+#### O projeto estará disponível em http://localhost:5173/
 
-### Lint with [ESLint](https://eslint.org/)
+## Referências
+- [Pizza icons created by Freepik - Flaticon](https://www.flaticon.com/free-icons/pizza/)
 
-```sh
-npm run lint
-```
-
-[Pizza icons created by Freepik - Flaticon](https://www.flaticon.com/free-icons/pizza)
+## License
+- [MIT](https://github.com/alexsandro49/pizz-app/blob/main/LICENSE)
